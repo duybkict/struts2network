@@ -4,50 +4,64 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author DELL
  */
 public class Post {
+
 	private int id;
-	private int userId;
+	private int personId;
 	private String content;
+	private Date created;
 	private Person person;
-	
+
 	public Post() {
 		this.id = 0;
-		this.userId = 0;
+		this.personId = 0;
 		this.content = "";
+		this.created = new Date(1992, 11, 9);
 	}
-	
-	public Post(int id, int userId, String content) {
+
+	public Post(int id, int personId, String content, Date created) {
 		this.id = id;
-		this.userId = userId;
+		this.personId = personId;
 		this.content = content;
+		this.created = created;
 	}
-	
+
 	public int getId() {
-		return this.id;
+		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public int getUserId() {
-		return this.userId;
+
+	public int getPersonId() {
+		return personId;
 	}
-	
-	public void setUserId(int userId) {
-		this.userId = userId;
+
+	public void setPersonId(int personId) {
+		this.personId = personId;
 	}
-	
+
 	public String getContent() {
-		return this.content;
+		return content;
 	}
-	
+
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
 	public Person getPerson() {
@@ -56,5 +70,5 @@ public class Post {
 
 	public void setPerson(Person person) {
 		this.person = person;
-	}	
+	}
 }

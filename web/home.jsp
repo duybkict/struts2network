@@ -23,6 +23,8 @@
     </head>
     <body>
 
+		<s:set var="userName"><s:property value="user.firstName" /> <s:property value="user.lastName" /></s:set>
+		
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
@@ -55,7 +57,7 @@
 				<div class="span4 offset1">
 					<div class="well sidebar-nav">						
 						<img src="holder.js/128x128" class="img-polaroid pull-left" style="margin-right:10px;">
-						<a href="#"><h4><s:property value="user.name" /></h4></a>
+						<a href="#"><h4><s:property value="#userName"/></h4></a>
 						<ul class="unstyled">							
 							<li><s:property value="user.email" /></li>
 							<li>
@@ -66,7 +68,7 @@
 									Male
 								</s:else>
 							</li>
-							<li><s:property value="user.age" /></li>
+							<li><s:property value="user.birthday" /></li>
 						</ul>
 						<a href="#" class="">Edit Profile</a>
 						<div style="clear:both" ></div>
@@ -92,7 +94,7 @@
 							</a>
 							<div class="media-body">
 								<button class="close pull-right">&times;</button>
-								<h4 class="media-heading"><a href="${userLink}"><s:property value="user.name" /></a></h4>
+								<h4 class="media-heading"><a href="${userLink}"><s:property value="#userName" /></a></h4>
 								<div class="media"><s:property value="content"/></div>								
 								<p class="muted">5 minutes ago.</p>
 							</div>

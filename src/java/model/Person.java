@@ -6,6 +6,7 @@ package model;
 
 import com.mysql.jdbc.Connection;
 import helper.DBHelper;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,29 +19,32 @@ import java.util.ArrayList;
 public class Person {
 
 	private int id;
-	private String name;
+	private String firstName;
+	private String lastName;
 	private String email;
 	private String password;
-	private int age;
+	private Date birthday;
 	private boolean gender;
 	private ArrayList<Post> posts;
 
 	public Person() {
 		this.id = 0;
-		this.name = "";
+		this.firstName = "";
+		this.lastName = "";
 		this.email = "";
 		this.password = "";
-		this.age = 0;
+		this.birthday = new Date(1992, 9, 11);
 		this.gender = false;
 		this.posts = new ArrayList<Post>();
 	}
 
 	public Person(int id) {
 		this.id = id;
-		this.name = "";
+		this.firstName = "";
+		this.lastName = "";
 		this.email = "";
 		this.password = "";
-		this.age = 0;
+		this.birthday = new Date(1992, 11, 9);
 		this.gender = false;
 		this.posts = new ArrayList<Post>();
 
@@ -55,21 +59,23 @@ public class Person {
 			rs = pst.executeQuery();
 
 			if (rs.next()) {
-				this.name = rs.getString("name");
+				this.firstName = rs.getString("first_name");
+				this.lastName = rs.getString("last_name");
 				this.email = rs.getString("email");
 				this.password = rs.getString("password");
-				this.age = rs.getInt("age");
+				this.birthday = rs.getDate("birthday");
 				this.gender = rs.getBoolean("gender");
 
-				pst = con.prepareStatement("SELECT * FROM posts WHERE user_id = ?");
+				pst = con.prepareStatement("SELECT * FROM posts WHERE person_id = ?");
 				pst.setInt(1, id);
 				rs = pst.executeQuery();
 
 				while (rs.next()) {
-					int postId = rs.getInt("id");
-					int postUserId = rs.getInt("user_id");
-					String postContent = rs.getString("content");
-					this.posts.add(new Post(postId, postUserId, postContent));
+					this.posts.add(new Post(
+						rs.getInt("id"),
+						rs.getInt("person_id"),
+						rs.getString("content"),
+						rs.getDate("created")));
 				}
 			}
 		} catch (ClassNotFoundException ex) {
@@ -91,6 +97,16 @@ public class Person {
 		}
 	}
 
+	public Person(int id, String firstName, String lastName, String email, String password, Date birthday, boolean gender) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.birthday = birthday;
+		this.gender = gender;
+	}	
+
 	public int getId() {
 		return id;
 	}
@@ -99,28 +115,20 @@ public class Person {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public ArrayList<Post> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(ArrayList<Post> posts) {
-		this.posts = posts;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -131,12 +139,20 @@ public class Person {
 		this.email = email;
 	}
 
-	public int getAge() {
-		return age;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 	public boolean isGender() {
@@ -146,6 +162,12 @@ public class Person {
 	public void setGender(boolean gender) {
 		this.gender = gender;
 	}
-	
-	
+
+	public ArrayList<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(ArrayList<Post> posts) {
+		this.posts = posts;
+	}	
 }
