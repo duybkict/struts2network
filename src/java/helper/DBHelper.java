@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Person;
 import model.Post;
 
 /**
@@ -40,18 +41,34 @@ public class DBHelper {
 		Connection connection = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
+		ResultSet rs1 = null;
 
 		try {
 			connection = DBHelper.getConnection();
 			pst = connection.prepareStatement("SELECT * FROM posts ORDER BY created DESC");
 			rs = pst.executeQuery();
 
-			if (rs.next()) {
+			while (rs.next()) {
 				Post post = new Post(
 					rs.getInt("id"),
 					rs.getInt("person_id"),
 					rs.getString("content"),
-					rs.getDate("created"));
+					rs.getDate("created"));				
+				
+				pst = con.prepareStatement("SELECT * FROM people WHERE id = ?");
+				pst.setInt(1, rs.getInt("person_id"));
+				rs1 = pst.executeQuery();
+
+				if (rs1.next()) {
+					post.setPerson(new Person(
+						rs1.getInt("id"), 
+						rs1.getString("first_name"),
+						rs1.getString("last_name"),
+						rs1.getString("email"),
+						rs1.getString("password"),
+						rs1.getDate("birthday"),
+						rs1.getBoolean("gender")));
+				}
 				
 				posts.add(post);
 			}
@@ -63,6 +80,9 @@ public class DBHelper {
 			try {
 				if (rs != null) {
 					rs.close();
+				}
+				if (rs1 != null) {
+					rs1.close();
 				}
 				if (pst != null) {
 					pst.close();

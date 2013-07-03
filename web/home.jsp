@@ -82,7 +82,7 @@
 						<s:submit cssClass="btn btn-primary"/>
 					</s:form>
 
-					<s:iterator value="user.posts">
+					<s:iterator value="posts">
 						<s:url action="user" var="userLink">
 							<s:param name="userId" value="user.id"></s:param>
 						</s:url>
@@ -94,7 +94,9 @@
 							</a>
 							<div class="media-body">
 								<button class="close pull-right">&times;</button>
-								<h4 class="media-heading"><a href="${userLink}"><s:property value="#userName" /></a></h4>
+								<h4 class="media-heading"><a href="${userLink}">
+									<s:property value="person.firstName" />&nbsp;<s:property value="person.lastName" />
+								</a></h4>
 								<div class="media"><s:property value="content"/></div>								
 								<p class="muted">5 minutes ago.</p>
 							</div>

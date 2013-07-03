@@ -5,6 +5,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import helper.DBHelper;
 import java.util.ArrayList;
 import model.Person;
 import model.Post;
@@ -21,6 +22,8 @@ public class HomeAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		this.user = new Person(1);
+		this.posts = DBHelper.getAllPosts();
+		
 		return SUCCESS;
 	}
 
