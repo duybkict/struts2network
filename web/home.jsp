@@ -26,13 +26,13 @@
 
 		<s:set var="userName"><s:property value="user.firstName" /> <s:property value="user.lastName" /></s:set>
 
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="brand" href="#">Struts2 Network</a>
-					<div class="nav-collapse collapse">
-						<ul class="nav pull-right">
-							<li class="active"><a href="<s:url action='home' />">Home</a></li>
+			<div class="navbar navbar-inverse navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="brand" href="#">Struts2 Network</a>
+						<div class="nav-collapse collapse">
+							<ul class="nav pull-right">
+								<li class="active"><a href="<s:url action='home' />">Home</a></li>
 							<li><a href="<s:url action='profile' />">Profile</a></li>
 							<li><a href=<s:url action='people' />#">Find Friends</a></li>
 							<li class="dropdown">
@@ -93,7 +93,7 @@
 								<button class="close dropdown-toggle" data-toggle="dropdown">&times;</button>
 								<ul class="dropdown-menu pull-left">
 									<li><a href="#">Edit Post</a></li>
-									<li><a href="#">Delete Post</a></li>
+									<li id="postDelete" postId="<s:property value='id'/>"><a href="#">Delete Post</a></li>
 								</ul>
 							</div>
 							<div class="media">							
@@ -128,10 +128,10 @@
 		</div><!--/.fluid-container-->
 
 		<!-- Hidden Post Inputs -->
-		<s:form id="postForm" action="home" cssClass="">
-			<s:textfield name="post.id" value=""/>
+		<s:form id="postForm" action="home">
+			<s:textfield name="post.id" />
 			<s:textfield name="post.personId" value="1" />
-			<s:textfield name="post.content" value=""/>
+			<s:textfield name="post.content" />
 			<s:textfield name="post.created" />
 		</s:form>
 
@@ -161,6 +161,14 @@
 				$("#postForm_post_content").val($("#postContent").val());
 				$("#postForm_post_created").val(moment().format("YYYY-MM-DD HH:mm:ss"));
 				$("#postForm").submit();
+			})
+			
+			$("#postDelete").click(function() {
+				if (confirm("Are you sure you want to permanently delete this post?")) {
+					$("#postForm_post_id").val("-" + $(this).attr("postId"));
+					$("#postForm_post_personId").val("1");
+					$("#postForm").submit();				
+				}
 			})
 		</script>
 	</body>

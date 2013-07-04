@@ -5,10 +5,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.conversion.annotations.Conversion;
-import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 import helper.DBHelper;
-import java.sql.Date;
 import java.util.ArrayList;
 import model.Person;
 import model.Post;
@@ -27,14 +24,16 @@ public class HomeAction extends ActionSupport {
 	public String execute() throws Exception {
 		if (this.post != null) {
 			if (this.post.getId() == 0) {
-				DBHelper.insertNewPost(this.post);
+				DBHelper.insertPost(this.post);
 				return SUCCESS;				
+			} else if (this.post.getId() < 0) {
+				DBHelper.deletePost(Math.abs(this.post.getId()));
+				return SUCCESS;
 			}
 		}
 
 		this.user = new Person(1);
 		this.posts = DBHelper.getAllPosts();
-		this.post = null;
 
 		return INPUT;
 	}

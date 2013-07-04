@@ -99,7 +99,7 @@ public class DBHelper {
 		return posts;
 	}
 
-	public static void insertNewPost(Post post) {
+	public static void insertPost(Post post) {
 		Connection connection = null;
 		PreparedStatement pst = null;
 
@@ -111,6 +111,32 @@ public class DBHelper {
 			pst.setTimestamp(3, post.getCreated());
 
 			pst.executeUpdate();
+		} catch (ClassNotFoundException ex) {
+			// Catch exception
+		} catch (SQLException ex) {
+			// Catch exception
+		} finally {
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+
+			} catch (SQLException ex) {
+				// Catch exception
+			}
+		}
+	}
+	
+	public static void deletePost(int id) {
+		Connection connection = null;
+		PreparedStatement pst = null;
+
+		try {
+			connection = DBHelper.getConnection();
+			pst = connection.prepareStatement("DELETE FROM posts WHERE id = ?");
+			pst.setInt(1, id);
+
+			pst.execute();
 		} catch (ClassNotFoundException ex) {
 			// Catch exception
 		} catch (SQLException ex) {
