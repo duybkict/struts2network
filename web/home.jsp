@@ -26,13 +26,13 @@
 
 		<s:set var="userName"><s:property value="user.firstName" /> <s:property value="user.lastName" /></s:set>
 
-			<div class="navbar navbar-inverse navbar-fixed-top">
-				<div class="navbar-inner">
-					<div class="container">
-						<a class="brand" href="#">Struts2 Network</a>
-						<div class="nav-collapse collapse">
-							<ul class="nav pull-right">
-								<li class="active"><a href="<s:url action='home' />">Home</a></li>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="#">Struts2 Network</a>
+					<div class="nav-collapse collapse">
+						<ul class="nav pull-right">
+							<li class="active"><a href="<s:url action='home' />">Home</a></li>
 							<li><a href="<s:url action='profile' />">Profile</a></li>
 							<li><a href=<s:url action='people' />#">Find Friends</a></li>
 							<li class="dropdown">
@@ -88,22 +88,31 @@
 						</s:url>
 
 						<hr />
-						<div class="media">			
-							<a class="pull-left" href="#">
-								<img class="media-object" data-src="holder.js/64x64">
-							</a>
-							<div class="media-body">
-								<button class="close pull-right">&times;</button>
-								<h4 class="media-heading"><a href="${userLink}">
-										<s:property value="person.firstName" />&nbsp;<s:property value="person.lastName" />
-									</a></h4>
-								<div class="media"><s:property value="content"/></div>								
-								<p class="muted">
-									<script type="text/javascript">
-										var date = "<s:date name="created" format="yyyy-MM-dd HH:mm:ss"/>";
-										document.write(moment(date, "YYYY-MM-DD HH:mm:ss").fromNow());
-									</script>									
-								</p>
+						<div class="post-box">
+							<div class="btn-group pull-right post-box-button">
+								<button class="close dropdown-toggle" data-toggle="dropdown">&times;</button>
+								<ul class="dropdown-menu pull-left">
+									<li><a href="#">Edit Post</a></li>
+									<li><a href="#">Delete Post</a></li>
+								</ul>
+							</div>
+							<div class="media">							
+								<a class="pull-left" href="#">
+									<img class="media-object" data-src="holder.js/64x64">
+								</a>
+
+								<div class="media-body">
+									<h4 class="media-heading"><a href="${userLink}">
+											<s:property value="person.firstName" />&nbsp;<s:property value="person.lastName" />
+										</a></h4>
+									<div class="media"><s:property value="content"/></div>								
+									<p class="muted">
+										<script type="text/javascript">
+											var date = "<s:date name="created" format="yyyy-MM-dd HH:mm:ss"/>";
+											document.write(moment(date, "YYYY-MM-DD HH:mm:ss").fromNow());
+										</script>									
+									</p>
+								</div>													
 							</div>
 						</div>
 					</s:iterator>

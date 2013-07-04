@@ -38,3 +38,13 @@ h4 {
 .form-signin span#birthday input[type="text"] {
 	width: 180px !important;
 }
+
+.post-box-button {
+	margin-top: -8px;
+	margin-right: 2px;
+	display: none;
+}
+
+.post-box:hover .post-box-button {
+	display: block;
+}
