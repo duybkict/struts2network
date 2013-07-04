@@ -16,6 +16,7 @@ public class Post {
 	private int personId;
 	private String content;
 	private Timestamp created;
+	private Timestamp modified;
 	private Person person;
 
 	public Post() {
@@ -70,5 +71,13 @@ public class Post {
 
 	public void setPerson(Person person) {
 		this.person = person;
+	}
+
+	public Timestamp getModified() {
+		return modified;
+	}
+
+	public void setModified(Timestamp modified) {
+		this.modified = modified;
 	}
 }

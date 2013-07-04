@@ -60,8 +60,6 @@ public class DBHelper {
 				pst.setInt(1, rs.getInt("person_id"));
 				rs1 = pst.executeQuery();
 
-				Timestamp test = rs.getTimestamp("created");
-
 				if (rs1.next()) {
 					post.setPerson(new Person(
 						rs1.getInt("id"),
@@ -108,7 +106,7 @@ public class DBHelper {
 			pst = connection.prepareStatement("INSERT INTO posts(person_id, content, created) VALUES (?, ?, ?)");
 			pst.setInt(1, post.getPersonId());
 			pst.setString(2, post.getContent());
-			pst.setTimestamp(3, post.getCreated());
+			pst.setTimestamp(3, new Timestamp(new java.util.Date().getTime()));
 
 			pst.executeUpdate();
 		} catch (ClassNotFoundException ex) {
@@ -133,9 +131,10 @@ public class DBHelper {
 
 		try {
 			connection = DBHelper.getConnection();
-			pst = connection.prepareStatement("UPDATE posts SET content = ? WHERE id = ?");
+			pst = connection.prepareStatement("UPDATE posts SET content = ?, modified = ? WHERE id = ?");
 			pst.setString(1, post.getContent());
-			pst.setInt(2, post.getId());
+			pst.setTimestamp(2, new Timestamp(new java.util.Date().getTime()));
+			pst.setInt(3, post.getId());			
 
 			pst.executeUpdate();
 		} catch (ClassNotFoundException ex) {

@@ -132,7 +132,6 @@
 			<s:textfield name="post.id" />
 			<s:textfield name="post.personId" value="1" />
 			<s:textfield name="post.content" />
-			<s:textfield name="post.created" />
 		</s:form>
 
 		<!-- Edit Post Modal Dialog -->
@@ -173,7 +172,6 @@
 			$("#newPostSubmit").click(function() {
 				$("#postForm_post_id").val("0");
 				$("#postForm_post_content").val($("#newPostContent").val());
-				$("#postForm_post_created").val(moment().format("YYYY-MM-DD HH:mm:ss"));
 				$("#postForm").submit();
 			})
 			
@@ -185,7 +183,6 @@
 			$(".postDelete").click(function() {
 				if (confirm("Are you sure you want to permanently delete this post?")) {
 					$("#postForm_post_id").val("-" + $(this).attr("postId"));
-					$("#postForm_post_personId").val("1");
 					$("#postForm").submit();				
 				}
 			})
@@ -194,7 +191,6 @@
 				var postId = $(this).attr("postId");
 				
 				$("#postForm_post_id").val(postId);
-				$("#postForm_post_created").val(moment().format("YYYY-MM-DD HH:mm:ss"));
 				$("#editPostContent").val($("#postContent_" + postId).html());
 			})
 		</script>
