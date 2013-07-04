@@ -75,7 +75,7 @@ public class Person {
 						rs.getInt("id"),
 						rs.getInt("person_id"),
 						rs.getString("content"),
-						rs.getDate("created")));
+						rs.getTimestamp("created")));
 				}
 			}
 		} catch (ClassNotFoundException ex) {

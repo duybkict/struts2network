@@ -20,18 +20,19 @@
 		<script type="text/javascript" src="js/jquery.min.js" ></script>
 		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>		
 		<script type="text/javascript" src="js/holder.js" ></script>
+		<script type="text/javascript" src="js/moment.min.js" ></script>
     </head>
     <body>
 
 		<s:set var="userName"><s:property value="user.firstName" /> <s:property value="user.lastName" /></s:set>
-		
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="brand" href="#">Struts2 Network</a>
-					<div class="nav-collapse collapse">
-						<ul class="nav pull-right">
-							<li class="active"><a href="<s:url action='home' />">Home</a></li>
+
+			<div class="navbar navbar-inverse navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="brand" href="#">Struts2 Network</a>
+						<div class="nav-collapse collapse">
+							<ul class="nav pull-right">
+								<li class="active"><a href="<s:url action='home' />">Home</a></li>
 							<li><a href="<s:url action='profile' />">Profile</a></li>
 							<li><a href=<s:url action='people' />#">Find Friends</a></li>
 							<li class="dropdown">
@@ -43,7 +44,7 @@
 									<li><a href="#">Account Settings</a></li>
 									<li><a href="<s:url action='index' />">Logout</a></li>
 									<li class="divider"></li>
-									<li><a href="#myModal" data-toggle="modal">Help</a></li>
+									<li><a href="#modalHelp" data-toggle="modal">Help</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -75,12 +76,11 @@
 					</div><!--/.well -->
 				</div><!--/span-->
 				<div class="span6">
-					<s:form action="post" cssClass="form-inline" cssStyle="width:100%">
-						<s:textarea name="post.content" placeholder="What's on your mind?" cssClass="input-block-level"/>
-						<s:hidden name="post.userId" value="user.id" />
-
-						<s:submit cssClass="btn btn-primary"/>
-					</s:form>
+					<div>
+						<textarea id="postContent" class="input-block-level" ></textarea>
+						<button id="postSubmit" class="btn btn-primary pull-right">Submit</button>
+						<div class="clearfix"></div>
+					</div>					
 
 					<s:iterator value="posts">
 						<s:url action="user" var="userLink">
@@ -95,10 +95,15 @@
 							<div class="media-body">
 								<button class="close pull-right">&times;</button>
 								<h4 class="media-heading"><a href="${userLink}">
-									<s:property value="person.firstName" />&nbsp;<s:property value="person.lastName" />
-								</a></h4>
+										<s:property value="person.firstName" />&nbsp;<s:property value="person.lastName" />
+									</a></h4>
 								<div class="media"><s:property value="content"/></div>								
-								<p class="muted">5 minutes ago.</p>
+								<p class="muted">
+									<script type="text/javascript">
+										var date = "<s:date name="created" format="yyyy-MM-dd HH:mm:ss"/>";
+										document.write(moment(date, "YYYY-MM-DD HH:mm:ss").fromNow());
+									</script>									
+								</p>
 							</div>
 						</div>
 					</s:iterator>
@@ -112,9 +117,17 @@
 			</footer>
 
 		</div><!--/.fluid-container-->
-		
-		<!--Help Modal-->
-		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<!-- Hidden Post Inputs -->
+		<s:form id="postForm" action="home" cssClass="">
+			<s:textfield name="post.id" value=""/>
+			<s:textfield name="post.personId" value="1" />
+			<s:textfield name="post.content" value=""/>
+			<s:textfield name="post.created" />
+		</s:form>
+
+		<!-- Help Modal Dialog -->
+		<div id="modalHelp" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				<h3 id="myModalLabel">Getting Help</h3>
@@ -130,6 +143,16 @@
 			<div class="modal-footer">
 				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 			</div>
-		</div><!--/Help Modal-->
+		</div><!--/modalHelp-->
+
+		<script type="text/javascript">
+			$("#postSubmit").click(function() {
+				$("#postForm_post_id").val("0");
+				$("#postForm_post_personId").val("1");
+				$("#postForm_post_content").val($("#postContent").val());
+				$("#postForm_post_created").val(moment().format("YYYY-MM-DD HH:mm:ss"));
+				$("#postForm").submit();
+			})
+		</script>
 	</body>
 </html>

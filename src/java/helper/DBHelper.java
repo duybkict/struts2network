@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import model.Person;
 import model.Post;
@@ -53,15 +54,17 @@ public class DBHelper {
 					rs.getInt("id"),
 					rs.getInt("person_id"),
 					rs.getString("content"),
-					rs.getDate("created"));				
-				
+					rs.getTimestamp("created"));
+
 				pst = con.prepareStatement("SELECT * FROM people WHERE id = ?");
 				pst.setInt(1, rs.getInt("person_id"));
 				rs1 = pst.executeQuery();
 
+				Timestamp test = rs.getTimestamp("created");
+
 				if (rs1.next()) {
 					post.setPerson(new Person(
-						rs1.getInt("id"), 
+						rs1.getInt("id"),
 						rs1.getString("first_name"),
 						rs1.getString("last_name"),
 						rs1.getString("email"),
@@ -69,7 +72,7 @@ public class DBHelper {
 						rs1.getDate("birthday"),
 						rs1.getBoolean("gender")));
 				}
-				
+
 				posts.add(post);
 			}
 		} catch (ClassNotFoundException ex) {
@@ -92,7 +95,35 @@ public class DBHelper {
 				// Catch exception
 			}
 		}
-		
+
 		return posts;
+	}
+
+	public static void insertNewPost(Post post) {
+		Connection connection = null;
+		PreparedStatement pst = null;
+
+		try {
+			connection = DBHelper.getConnection();
+			pst = connection.prepareStatement("INSERT INTO posts(person_id, content, created) VALUES (?, ?, ?)");
+			pst.setInt(1, post.getPersonId());
+			pst.setString(2, post.getContent());
+			pst.setTimestamp(3, post.getCreated());
+
+			pst.executeUpdate();
+		} catch (ClassNotFoundException ex) {
+			// Catch exception
+		} catch (SQLException ex) {
+			// Catch exception
+		} finally {
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+
+			} catch (SQLException ex) {
+				// Catch exception
+			}
+		}
 	}
 }

@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -15,17 +15,17 @@ public class Post {
 	private int id;
 	private int personId;
 	private String content;
-	private Date created;
+	private Timestamp created;
 	private Person person;
 
 	public Post() {
 		this.id = 0;
 		this.personId = 0;
 		this.content = "";
-		this.created = new Date(1992, 11, 9);
+		this.created = new Timestamp(1992, 11, 9, 0, 0, 0, 0);
 	}
 
-	public Post(int id, int personId, String content, Date created) {
+	public Post(int id, int personId, String content, Timestamp created) {
 		this.id = id;
 		this.personId = personId;
 		this.content = content;
@@ -56,11 +56,11 @@ public class Post {
 		this.content = content;
 	}
 
-	public Date getCreated() {
+	public Timestamp getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
 
