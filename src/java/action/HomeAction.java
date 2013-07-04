@@ -26,10 +26,13 @@ public class HomeAction extends ActionSupport {
 			if (this.post.getId() == 0) {
 				DBHelper.insertPost(this.post);
 				return SUCCESS;				
+			} else if (this.post.getId() > 0) {
+				DBHelper.updatePost(this.post);
+				return SUCCESS;
 			} else if (this.post.getId() < 0) {
 				DBHelper.deletePost(Math.abs(this.post.getId()));
 				return SUCCESS;
-			}
+			} 
 		}
 
 		this.user = new Person(1);

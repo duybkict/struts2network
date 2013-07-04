@@ -127,6 +127,33 @@ public class DBHelper {
 		}
 	}
 	
+	public static void updatePost(Post post) {
+		Connection connection = null;
+		PreparedStatement pst = null;
+
+		try {
+			connection = DBHelper.getConnection();
+			pst = connection.prepareStatement("UPDATE posts SET content = ? WHERE id = ?");
+			pst.setString(1, post.getContent());
+			pst.setInt(2, post.getId());
+
+			pst.executeUpdate();
+		} catch (ClassNotFoundException ex) {
+			// Catch exception
+		} catch (SQLException ex) {
+			// Catch exception
+		} finally {
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+
+			} catch (SQLException ex) {
+				// Catch exception
+			}
+		}
+	}
+	
 	public static void deletePost(int id) {
 		Connection connection = null;
 		PreparedStatement pst = null;

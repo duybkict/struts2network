@@ -42,9 +42,9 @@ h4 {
 .post-box-button {
 	margin-top: -8px;
 	margin-right: 2px;
-	display: none;
+	visibility: hidden;
 }
 
 .post-box:hover .post-box-button {
-	display: block;
+	visibility: visible;
 }

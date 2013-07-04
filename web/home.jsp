@@ -26,13 +26,13 @@
 
 		<s:set var="userName"><s:property value="user.firstName" /> <s:property value="user.lastName" /></s:set>
 
-			<div class="navbar navbar-inverse navbar-fixed-top">
-				<div class="navbar-inner">
-					<div class="container">
-						<a class="brand" href="#">Struts2 Network</a>
-						<div class="nav-collapse collapse">
-							<ul class="nav pull-right">
-								<li class="active"><a href="<s:url action='home' />">Home</a></li>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="#">Struts2 Network</a>
+					<div class="nav-collapse collapse">
+						<ul class="nav pull-right">
+							<li class="active"><a href="<s:url action='home' />">Home</a></li>
 							<li><a href="<s:url action='profile' />">Profile</a></li>
 							<li><a href=<s:url action='people' />#">Find Friends</a></li>
 							<li class="dropdown">
@@ -77,8 +77,8 @@
 				</div><!--/span-->
 				<div class="span6">
 					<div>
-						<textarea id="postContent" class="input-block-level" ></textarea>
-						<button id="postSubmit" class="btn btn-primary pull-right">Submit</button>
+						<textarea id="newPostContent" class="input-block-level" ></textarea>
+						<button id="newPostSubmit" class="btn btn-primary pull-right">Submit</button>
 						<div class="clearfix"></div>
 					</div>					
 
@@ -92,11 +92,11 @@
 							<div class="btn-group pull-right post-box-button">
 								<button class="close dropdown-toggle" data-toggle="dropdown">&times;</button>
 								<ul class="dropdown-menu pull-left">
-									<li><a href="#">Edit Post</a></li>
-									<li id="postDelete" postId="<s:property value='id'/>"><a href="#">Delete Post</a></li>
+									<li class="postEdit" postId="<s:property value='id'/>" ><a href="#modalEditPost" data-toggle="modal">Edit Post</a></li>
+									<li class="postDelete" postId="<s:property value='id'/>"><a href="#">Delete Post</a></li>
 								</ul>
 							</div>
-							<div class="media">							
+							<div class="media">
 								<a class="pull-left" href="#">
 									<img class="media-object" data-src="holder.js/64x64">
 								</a>
@@ -105,7 +105,7 @@
 									<h4 class="media-heading"><a href="${userLink}">
 											<s:property value="person.firstName" />&nbsp;<s:property value="person.lastName" />
 										</a></h4>
-									<div class="media"><s:property value="content"/></div>								
+									<div class="media" id="postContent_<s:property value='id'/>"><s:property value="content"/></div>								
 									<p class="muted">
 										<script type="text/javascript">
 											var date = "<s:date name="created" format="yyyy-MM-dd HH:mm:ss"/>";
@@ -135,6 +135,21 @@
 			<s:textfield name="post.created" />
 		</s:form>
 
+		<!-- Edit Post Modal Dialog -->
+		<div id="modalEditPost" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="myModalLabel">Edit Post</h3>
+			</div>
+			<div class="modal-body">
+				<textarea id="editPostContent" class="input-block-level" ></textarea>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				<button id="editPostSubmit" class="btn btn-primary pull-right">Submit</button>
+			</div>
+		</div><!--/modalEditPost-->
+
 		<!-- Help Modal Dialog -->
 		<div id="modalHelp" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
@@ -155,20 +170,32 @@
 		</div><!--/modalHelp-->
 
 		<script type="text/javascript">
-			$("#postSubmit").click(function() {
+			$("#newPostSubmit").click(function() {
 				$("#postForm_post_id").val("0");
-				$("#postForm_post_personId").val("1");
-				$("#postForm_post_content").val($("#postContent").val());
+				$("#postForm_post_content").val($("#newPostContent").val());
 				$("#postForm_post_created").val(moment().format("YYYY-MM-DD HH:mm:ss"));
 				$("#postForm").submit();
 			})
 			
-			$("#postDelete").click(function() {
+			$("#editPostSubmit").click(function() {
+				$("#postForm_post_content").val($("#editPostContent").val());
+				$("#postForm").submit();
+			})
+			
+			$(".postDelete").click(function() {
 				if (confirm("Are you sure you want to permanently delete this post?")) {
 					$("#postForm_post_id").val("-" + $(this).attr("postId"));
 					$("#postForm_post_personId").val("1");
 					$("#postForm").submit();				
 				}
+			})
+			
+			$(".postEdit").click(function() {
+				var postId = $(this).attr("postId");
+				
+				$("#postForm_post_id").val(postId);
+				$("#postForm_post_created").val(moment().format("YYYY-MM-DD HH:mm:ss"));
+				$("#editPostContent").val($("#postContent_" + postId).html());
 			})
 		</script>
 	</body>
