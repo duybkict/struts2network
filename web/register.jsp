@@ -61,7 +61,7 @@
 				<p>By clicking Sign Up, you agree to our <a href="#termsAndConditionsModal" data-toggle="modal">Terms</a> and that you have read our <a href="#dataUsePolicyModal" data-toggle="modal">Data use policy</a>.</p>
 
 				<button class="btn btn-large btn-primary" type="submit">Create New Account</button>
-				<a href="<s:url action='login' />" style="margin-left:30px;vertical-align:bottom" >Already have an Account.</a>
+				<a href="login.jsp" style="margin-left:30px;vertical-align:bottom" >Already have an Account.</a>
 			</form>
 
 		</div> <!-- /container -->
