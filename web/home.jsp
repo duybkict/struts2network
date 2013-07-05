@@ -26,13 +26,13 @@
 
 		<s:set var="userName"><s:property value="user.firstName" /> <s:property value="user.lastName" /></s:set>
 
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="brand" href="#">Struts2 Network</a>
-					<div class="nav-collapse collapse">
-						<ul class="nav pull-right">
-							<li class="active"><a href="<s:url action='home' />">Home</a></li>
+			<div class="navbar navbar-inverse navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="brand" href="#">Struts2 Network</a>
+						<div class="nav-collapse collapse">
+							<ul class="nav pull-right">
+								<li class="active"><a href="<s:url action='home' />">Home</a></li>
 							<li><a href="<s:url action='profile' />">Profile</a></li>
 							<li><a href=<s:url action='people' />#">Find Friends</a></li>
 							<li class="dropdown">
@@ -61,15 +61,6 @@
 						<a href="#"><h4><s:property value="#userName"/></h4></a>
 						<ul class="unstyled">							
 							<li><s:property value="user.email" /></li>
-							<li>
-								<s:if test="%{user.gender==false}">
-									Female
-								</s:if>
-								<s:else>
-									Male
-								</s:else>
-							</li>
-							<li><s:property value="user.birthday" /></li>
 						</ul>
 						<a href="#" class="">Edit Profile</a>
 						<div style="clear:both" ></div>
@@ -77,7 +68,7 @@
 				</div><!--/span-->
 				<div class="span6">
 					<div>
-						<textarea id="newPostContent" class="input-block-level" ></textarea>
+						<textarea id="newPostContent" class="input-block-level" placeholder="What's on your mind?"></textarea>
 						<button id="newPostSubmit" class="btn btn-primary pull-right">Submit</button>
 						<div class="clearfix"></div>
 					</div>					
@@ -87,7 +78,6 @@
 							<s:param name="userId" value="user.id"></s:param>
 						</s:url>
 
-						<hr />
 						<div class="post-box">
 							<div class="btn-group pull-right post-box-button">
 								<button class="close dropdown-toggle" data-toggle="dropdown">&times;</button>
@@ -109,13 +99,47 @@
 									<p class="muted">
 										<script type="text/javascript">
 											var date = "<s:date name="created" format="yyyy-MM-dd HH:mm:ss"/>";
-											document.write(moment(date, "YYYY-MM-DD HH:mm:ss").fromNow());
+											document.write("Posted " + moment(date, "YYYY-MM-DD HH:mm:ss").fromNow() + ".");
 										</script>									
 									</p>
 								</div>													
 							</div>
 						</div>
 					</s:iterator>
+
+
+					<!-- Pagination -->
+					<div class="pagination pagination-centered">
+						<ul>
+							<s:set name="currentPage" value="offset / limit"/>
+							
+							<li class="<s:if test="#currentPage == 0">disabled</s:if>">
+								<a href="<s:url action="home">
+									   <s:param name="offset" value="0" />
+									   <s:param name="limit" value="limit" />
+								   </s:url>" >&laquo;
+								</a>
+							</li>
+
+							<s:iterator var="counter" begin="0" end="countPages">
+								<li class="<s:if test="#currentPage == #counter">disabled</s:if>">
+									<a href="<s:url action="home">
+										   <s:param name="offset" value="#counter * limit" />
+										   <s:param name="limit" value="limit" />
+									   </s:url>"><s:property value="#counter + 1" />
+									</a>
+								</li>
+							</s:iterator>
+								
+							<li class="<s:if test="#currentPage == countPages">disabled</s:if>">
+								<a href="<s:url action="home">
+									   <s:param name="offset" value="countPages * limit" />
+									   <s:param name="limit" value="limit" />
+								   </s:url>">&raquo;
+								</a>
+							</li>
+						</ul>
+					</div><!--/pagination-->
 				</div><!--/span-->
 			</div><!--/row-->
 
@@ -128,10 +152,12 @@
 		</div><!--/.fluid-container-->
 
 		<!-- Hidden Post Inputs -->
-		<s:form id="postForm" action="home">
+		<s:form id="postForm" action="home" cssClass="hide">
 			<s:textfield name="post.id" />
 			<s:textfield name="post.personId" value="1" />
 			<s:textfield name="post.content" />
+			<s:textfield name="offset" />
+			<s:textfield name="limit" />
 		</s:form>
 
 		<!-- Edit Post Modal Dialog -->
@@ -170,13 +196,25 @@
 
 		<script type="text/javascript">
 			$("#newPostSubmit").click(function() {
+				var postContent = $("#newPostContent").val();
+				if (postContent == null || postContent == "") {
+					alert("Post content must not be left blank!");
+					return;
+				}
+				
 				$("#postForm_post_id").val("0");
-				$("#postForm_post_content").val($("#newPostContent").val());
+				$("#postForm_post_content").val(postContent);
 				$("#postForm").submit();
 			})
 			
 			$("#editPostSubmit").click(function() {
-				$("#postForm_post_content").val($("#editPostContent").val());
+				var postContent = $("#editPostContent").val();
+				if (postContent == null || postContent == "") {
+					alert("Post content must not be left blank!");
+					return;
+				}
+				
+				$("#postForm_post_content").val(postContent);
 				$("#postForm").submit();
 			})
 			
@@ -192,6 +230,10 @@
 				
 				$("#postForm_post_id").val(postId);
 				$("#editPostContent").val($("#postContent_" + postId).html());
+			})
+			
+			$(".paginattion li").click(function() {
+				alert($(this).html());				
 			})
 		</script>
 	</body>

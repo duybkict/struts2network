@@ -39,8 +39,22 @@ h4 {
 	width: 180px !important;
 }
 
+textarea {
+	resize: vertical;
+}
+
+#newPostSubmit {
+	margin-top: -5px;
+	margin-bottom: 10px;
+}
+
+.post-box {
+	border-top: 1px solid #ccc;
+	margin-top: 5px;
+}
+
 .post-box-button {
-	margin-top: -8px;
+	margin-top: 5px;
 	margin-right: 2px;
 	visibility: hidden;
 }

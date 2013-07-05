@@ -19,6 +19,13 @@ public class HomeAction extends ActionSupport {
 	private Post post;
 	private Person user;
 	private ArrayList<Post> posts;
+	private int offset;
+	private int limit;
+	
+	{
+		offset = 0;
+		limit = 5;
+	}
 
 	@Override
 	public String execute() throws Exception {
@@ -36,7 +43,7 @@ public class HomeAction extends ActionSupport {
 		}
 
 		this.user = new Person(1);
-		this.posts = DBHelper.getAllPosts();
+		this.posts = DBHelper.getPosts(this.offset, this.limit);
 
 		return INPUT;
 	}
@@ -63,5 +70,25 @@ public class HomeAction extends ActionSupport {
 
 	public void setPosts(ArrayList<Post> posts) {
 		this.posts = posts;
+	}
+
+	public int getOffset() {
+		return offset;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+	
+	public int getCountPages() {
+		return (DBHelper.getCountPosts() - 1) / limit;
 	}
 }

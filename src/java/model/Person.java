@@ -19,33 +19,24 @@ import java.util.ArrayList;
 public class Person {
 
 	private int id;
-	private String firstName;
-	private String lastName;
+	private String name;
 	private String email;
 	private String password;
-	private Date birthday;
-	private boolean gender;
 	private ArrayList<Post> posts;
 
 	public Person() {
 		this.id = 0;
-		this.firstName = "";
-		this.lastName = "";
+		this.name = "";
 		this.email = "";
 		this.password = "";
-		this.birthday = new Date(1992, 9, 11);
-		this.gender = false;
 		this.posts = new ArrayList<Post>();
 	}
 
 	public Person(int id) {
 		this.id = id;
-		this.firstName = "";
-		this.lastName = "";
+		this.name = "";
 		this.email = "";
 		this.password = "";
-		this.birthday = new Date(1992, 11, 9);
-		this.gender = false;
 		this.posts = new ArrayList<Post>();
 
 		Connection con = null;
@@ -59,12 +50,9 @@ public class Person {
 			rs = pst.executeQuery();
 
 			if (rs.next()) {
-				this.firstName = rs.getString("first_name");
-				this.lastName = rs.getString("last_name");
+				this.name = rs.getString("name");
 				this.email = rs.getString("email");
 				this.password = rs.getString("password");
-				this.birthday = rs.getDate("birthday");
-				this.gender = rs.getBoolean("gender");
 
 				pst = con.prepareStatement("SELECT * FROM posts WHERE person_id = ?");
 				pst.setInt(1, id);
@@ -97,14 +85,11 @@ public class Person {
 		}
 	}
 
-	public Person(int id, String firstName, String lastName, String email, String password, Date birthday, boolean gender) {
+	public Person(int id, String name, String email, String password) {
 		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.birthday = birthday;
-		this.gender = gender;
 	}	
 
 	public int getId() {
@@ -116,19 +101,11 @@ public class Person {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return name;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.name = firstName;
 	}
 
 	public String getEmail() {
@@ -145,22 +122,6 @@ public class Person {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-
-	public boolean isGender() {
-		return gender;
-	}
-
-	public void setGender(boolean gender) {
-		this.gender = gender;
 	}
 
 	public ArrayList<Post> getPosts() {
