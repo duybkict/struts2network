@@ -21,6 +21,10 @@ public class AuthHelper {
 
 	private AuthHelper() {
 	}
+	
+	public static Person getLoggedInUser() {
+		return loggedInUser;
+	}
 
 	public static boolean login(String email, String password) {
 		Connection connection = null;

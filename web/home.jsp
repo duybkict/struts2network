@@ -26,13 +26,13 @@
 
 		<s:set var="userName"><s:property value="user.firstName" /> <s:property value="user.lastName" /></s:set>
 
-			<div class="navbar navbar-inverse navbar-fixed-top">
-				<div class="navbar-inner">
-					<div class="container">
-						<a class="brand" href="#">Struts2 Network</a>
-						<div class="nav-collapse collapse">
-							<ul class="nav pull-right">
-								<li class="active"><a href="<s:url action='home' />">Home</a></li>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="#">Struts2 Network</a>
+					<div class="nav-collapse collapse">
+						<ul class="nav pull-right">
+							<li class="active"><a href="<s:url action='home' />">Home</a></li>
 							<li><a href="<s:url action='profile' />">Profile</a></li>
 							<li><a href=<s:url action='people' />#">Find Friends</a></li>
 							<li class="dropdown">
@@ -55,16 +55,14 @@
 
 		<div class="container">
 			<div class="row-fluid">
-				<div class="span4 offset1">
-					<div class="well sidebar-nav">						
-						<img src="holder.js/128x128" class="img-polaroid pull-left" style="margin-right:10px;">
-						<a href="#"><h4><s:property value="#userName"/></h4></a>
-						<ul class="unstyled">							
-							<li><s:property value="user.email" /></li>
-						</ul>
-						<a href="#" class="">Edit Profile</a>
-						<div style="clear:both" ></div>
+				<div class="span4 offset1 well well-small">
+					<img src="holder.js/128x128" class="img-polaroid pull-left" style="margin-right:10px;">
+					<div class="sidebar-nav">						
+						<a href="#"><h4><s:property value="#userName"/></h4></a>							
+						<s:property value="user.email" /><br />
+						<a href="#" class="">Edit Profile</a>						
 					</div><!--/.well -->
+					<div class="clearfix" ></div>
 				</div><!--/span-->
 				<div class="span6">
 					<div>
@@ -74,15 +72,11 @@
 					</div>					
 
 					<s:iterator value="posts">
-						<s:url action="user" var="userLink">
-							<s:param name="userId" value="user.id"></s:param>
-						</s:url>
-
 						<div class="post-box">
-							<div class="btn-group pull-right post-box-button">
-								<button class="close dropdown-toggle" data-toggle="dropdown">&times;</button>
-								<ul class="dropdown-menu pull-left">
-									<li class="postEdit" postId="<s:property value='id'/>" ><a href="#modalEditPost" data-toggle="modal">Edit Post</a></li>
+							<div class="btn-group pull-right post-box-button <s:if test='user.id == person.id'>post-box-button-toggle</s:if>">
+									<button class="close dropdown-toggle" data-toggle="dropdown">&times;</button>
+									<ul class="dropdown-menu pull-left">
+										<li class="postEdit" postId="<s:property value='id'/>" ><a href="#modalEditPost" data-toggle="modal">Edit Post</a></li>
 									<li class="postDelete" postId="<s:property value='id'/>"><a href="#">Delete Post</a></li>
 								</ul>
 							</div>
@@ -100,9 +94,9 @@
 										<script type="text/javascript">
 											var date = "<s:date name="created" format="yyyy-MM-dd HH:mm:ss"/>";
 											document.write("Posted " + moment(date, "YYYY-MM-DD HH:mm:ss").fromNow() + ".");
-										</script>									
+										</script>
 									</p>
-								</div>													
+								</div>
 							</div>
 						</div>
 					</s:iterator>
@@ -112,7 +106,7 @@
 					<div class="pagination pagination-centered">
 						<ul>
 							<s:set name="currentPage" value="offset / limit"/>
-							
+
 							<li class="<s:if test="#currentPage == 0">disabled</s:if>">
 								<a href="<s:url action="home">
 									   <s:param name="offset" value="0" />
@@ -130,7 +124,7 @@
 									</a>
 								</li>
 							</s:iterator>
-								
+
 							<li class="<s:if test="#currentPage == countPages">disabled</s:if>">
 								<a href="<s:url action="home">
 									   <s:param name="offset" value="countPages * limit" />
@@ -154,10 +148,10 @@
 		<!-- Hidden Post Inputs -->
 		<s:form id="postForm" action="home" cssClass="hide">
 			<s:textfield name="post.id" />
-			<s:textfield name="post.personId" value="1" />
+			<s:textfield name="post.personId" value="%{user.id}" />
 			<s:textfield name="post.content" />
 			<s:textfield name="offset" />
-			<s:textfield name="limit" />
+			<s:textfield name="limit" />			
 		</s:form>
 
 		<!-- Edit Post Modal Dialog -->
