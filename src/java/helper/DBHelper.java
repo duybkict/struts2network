@@ -5,12 +5,19 @@
 package helper;
 
 import com.mysql.jdbc.Connection;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Person;
 import model.Post;
 
@@ -31,9 +38,22 @@ public class DBHelper {
 		if (con == null) {
 			Class.forName("com.mysql.jdbc.Driver");
 
-			con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/struts2project", "root", "");
-		}
+			Properties prop = new Properties();
 
+			try {
+				prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("/custom-config.properties"));
+
+				con = (Connection) DriverManager.getConnection(
+					prop.getProperty("database"),
+					prop.getProperty("user"),
+					prop.getProperty("password"));
+
+			} catch (FileNotFoundException ex) {
+				// Catch exception
+			} catch (IOException ex) {
+				// Catch exception
+			}
+		}
 		return con;
 	}
 
@@ -94,7 +114,7 @@ public class DBHelper {
 
 		return posts;
 	}
-	
+
 	public static ArrayList<Post> getPosts(int offset, int limit) {
 		ArrayList<Post> posts = new ArrayList<Post>();
 

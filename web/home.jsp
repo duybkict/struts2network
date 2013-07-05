@@ -151,7 +151,7 @@
 			<s:textfield name="post.personId" value="%{user.id}" />
 			<s:textfield name="post.content" />
 			<s:textfield name="offset" />
-			<s:textfield name="limit" />			
+			<s:textfield name="limit" />
 		</s:form>
 
 		<!-- Edit Post Modal Dialog -->
@@ -224,10 +224,6 @@
 				
 				$("#postForm_post_id").val(postId);
 				$("#editPostContent").val($("#postContent_" + postId).html());
-			})
-			
-			$(".paginattion li").click(function() {
-				alert($(this).html());				
 			})
 		</script>
 	</body>

@@ -31,16 +31,16 @@ public class HomeAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		if (this.post != null) {
-			if (this.post.getId() == 0) {
+			if (this.post.getId() == 0) { //Insert
 				DBHelper.insertPost(this.post);
 				return SUCCESS;				
-			} else if (this.post.getId() > 0) {
+			} else if (this.post.getId() > 0) { //Update
 				DBHelper.updatePost(this.post);
 				return SUCCESS;
-			} else if (this.post.getId() < 0) {
+			} else if (this.post.getId() < 0) { //Delete
 				DBHelper.deletePost(Math.abs(this.post.getId()));
 				return SUCCESS;
-			} 
+			}
 		}
 
 		this.user = AuthHelper.getLoggedInUser();
