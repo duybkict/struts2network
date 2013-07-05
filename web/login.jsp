@@ -35,16 +35,16 @@
     <body>
         <div class="container">
 
-			<form class="form-signin">
+			<form class="form-signin" action="login" method="post">
 				<h2 class="form-signin-heading">Sign In</h2>
 				<div class="controls">
-					<s:textfield placeholder="Email" cssClass="input-block-level" />
+					<s:textfield name="email" placeholder="Email" cssClass="input-block-level" />
 				</div>
 				<div class="controls">
-					<s:password placeholder="Password" cssClass="input-block-level" />
+					<s:password name="password" placeholder="Password" cssClass="input-block-level" />
 				</div>
 
-				<a href="<s:url action='home' />" class="btn btn-large btn-primary" type="submit">Sign In</a>
+				<input type="submit" class="btn btn-large btn-primary" value="Sign In" />
 				<a href="<s:url action='register' />" style="margin-left:57px;vertical-align:bottom" >Create a new Account.</a>
 			</form>
 

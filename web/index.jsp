@@ -27,10 +27,10 @@
 				<div class="container">
 					<a class="brand" href="#">Struts2 Network</a>
 					<div class="nav-collapse collapse">
-						<form class="navbar-form pull-right">
-							<input class="span2" type="text" placeholder="Email">
-							<input class="span2" type="password" placeholder="Password">
-							<a type="submit" class="btn" href="<s:url action='login'/>" >Sign in</a>
+						<form class="navbar-form pull-right" action="login" method="post">
+							<s:textfield name="email" placeholder="Email" cssClass="span2" />
+							<s:password name="password" placeholder="Password" cssClass="span2" />
+							<input type="submit" class="btn" value="Sign In" />
 						</form>
 					</div><!--/.nav-collapse -->
 				</div>

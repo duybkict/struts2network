@@ -15,8 +15,9 @@
 			<result>/register.jsp</result>
 		</action>
 
-		<action name="login">
-			<result>/login.jsp</result>
+		<action name="login" class="action.LoginAction" method="execute">			
+			<result name="input">/login.jsp</result>
+			<result name="success" type="redirectAction">home</result>
 		</action>
 		
 		<action name="home" class="action.HomeAction" method="execute">
