@@ -7,6 +7,7 @@ package action;
 import com.opensymphony.xwork2.ActionSupport;
 import helper.AuthHelper;
 import helper.DBHelper;
+import helper.util.SubmitAction;
 import java.util.ArrayList;
 import model.Person;
 import model.Post;
@@ -22,25 +23,30 @@ public class HomeAction extends ActionSupport {
 	private ArrayList<Post> posts;
 	private int offset;
 	private int limit;
+	private SubmitAction submitAction;
 	
 	{
 		offset = 0;
 		limit = 5;
+		submitAction = SubmitAction.NONE;
 	}
 
 	@Override
 	public String execute() throws Exception {
-		if (this.post != null) {
-			if (this.post.getId() == 0) { //Insert
-				Post.insertPost(this.post);
-				return SUCCESS;				
-			} else if (this.post.getId() > 0) { //Update
-				Post.updatePost(this.post);
-				return SUCCESS;
-			} else if (this.post.getId() < 0) { //Delete
-				Post.deletePost(Math.abs(this.post.getId()));
-				return SUCCESS;
-			}
+		if (this.submitAction != SubmitAction.NONE) {
+			switch (this.submitAction) {
+				case INSERT:
+					Post.insertPost(this.post);
+					return SUCCESS;
+				case UPDATE:
+					Post.updatePost(this.post);
+					return SUCCESS;
+				case DELETE:
+					Post.deletePost(Math.abs(this.post.getId()));
+					return SUCCESS;
+				default: // Incorrect submit action
+					this.submitAction = SubmitAction.NONE;
+			}			
 		}
 
 		this.user = AuthHelper.getLoggedInUser();
@@ -91,5 +97,13 @@ public class HomeAction extends ActionSupport {
 	
 	public int getCountPages() {
 		return (Post.getCountPosts() - 1) / limit;
+	}
+
+	public SubmitAction getSubmitAction() {
+		return submitAction;
+	}
+
+	public void setSubmitAction(SubmitAction submitAction) {
+		this.submitAction = submitAction;
 	}
 }

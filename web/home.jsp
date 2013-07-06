@@ -150,8 +150,7 @@
 			<s:textfield name="post.id" />
 			<s:textfield name="post.personId" value="%{user.id}" />
 			<s:textfield name="post.content" />
-			<s:textfield name="offset" />
-			<s:textfield name="limit" />
+			<s:textfield name="submitAction" />
 		</s:form>
 
 		<!-- Edit Post Modal Dialog -->
@@ -188,33 +187,43 @@
 			</div>
 		</div><!--/modalHelp-->
 
-		<script type="text/javascript">
+		<script type="text/javascript">			
 			$("#newPostSubmit").click(function() {
-				var postContent = $("#newPostContent").val();
+				// Validate
+				var postContent = $("#newPostContent").val().trim();
 				if (postContent == null || postContent == "") {
 					alert("Post content must not be left blank!");
 					return;
 				}
 				
-				$("#postForm_post_id").val("0");
+				// Submit
 				$("#postForm_post_content").val(postContent);
+				$("#postForm_submitAction").val("INSERT");
 				$("#postForm").submit();
 			})
 			
 			$("#editPostSubmit").click(function() {
-				var postContent = $("#editPostContent").val();
+				// Validate
+				var postContent = $("#editPostContent").val().trim();
 				if (postContent == null || postContent == "") {
 					alert("Post content must not be left blank!");
 					return;
 				}
 				
+				// Submit
 				$("#postForm_post_content").val(postContent);
+				$("#postForm_submitAction").val("UPDATE");
 				$("#postForm").submit();
 			})
 			
 			$(".postDelete").click(function() {
+				var postId = $(this).attr("postId");
+				
+				// Confirm
 				if (confirm("Are you sure you want to permanently delete this post?")) {
-					$("#postForm_post_id").val("-" + $(this).attr("postId"));
+					// Submit
+					$("#postForm_post_id").val(postId);
+					$("#postForm_submitAction").val("DELETE");
 					$("#postForm").submit();				
 				}
 			})
