@@ -32,19 +32,19 @@ public class HomeAction extends ActionSupport {
 	public String execute() throws Exception {
 		if (this.post != null) {
 			if (this.post.getId() == 0) { //Insert
-				DBHelper.insertPost(this.post);
+				Post.insertPost(this.post);
 				return SUCCESS;				
 			} else if (this.post.getId() > 0) { //Update
-				DBHelper.updatePost(this.post);
+				Post.updatePost(this.post);
 				return SUCCESS;
 			} else if (this.post.getId() < 0) { //Delete
-				DBHelper.deletePost(Math.abs(this.post.getId()));
+				Post.deletePost(Math.abs(this.post.getId()));
 				return SUCCESS;
 			}
 		}
 
 		this.user = AuthHelper.getLoggedInUser();
-		this.posts = DBHelper.getPosts(this.offset, this.limit);
+		this.posts = Post.getPosts(this.offset, this.limit);
 
 		return INPUT;
 	}
@@ -90,6 +90,6 @@ public class HomeAction extends ActionSupport {
 	}
 	
 	public int getCountPages() {
-		return (DBHelper.getCountPosts() - 1) / limit;
+		return (Post.getCountPosts() - 1) / limit;
 	}
 }

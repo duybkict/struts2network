@@ -1,0 +1,22 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	renamed:    src/java/helper/PostDateComparator.java -> src/java/helper/util/PostDateComparator.java
+#	renamed:    src/java/helper/TimestampConverter.java -> src/java/helper/util/TimestampConverter.java
+#
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   src/java/action/HomeAction.java
+#	modified:   src/java/helper/DBHelper.java
+#	modified:   src/java/helper/util/PostDateComparator.java
+#	modified:   src/java/helper/util/TimestampConverter.java
+#	modified:   src/java/model/Post.java
+#	modified:   src/java/xwork-conversion.properties
+#
+
