@@ -6,11 +6,10 @@ package model;
 
 import com.mysql.jdbc.Connection;
 import helper.DBHelper;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.Timestamp;
 
 /**
  *
@@ -22,22 +21,16 @@ public class Person {
 	private String name;
 	private String email;
 	private String password;
-	private ArrayList<Post> posts;
 
-	public Person() {
+	{
 		this.id = 0;
 		this.name = "";
 		this.email = "";
 		this.password = "";
-		this.posts = new ArrayList<Post>();
 	}
 
 	public Person(int id) {
 		this.id = id;
-		this.name = "";
-		this.email = "";
-		this.password = "";
-		this.posts = new ArrayList<Post>();
 
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -53,18 +46,6 @@ public class Person {
 				this.name = rs.getString("name");
 				this.email = rs.getString("email");
 				this.password = rs.getString("password");
-
-				pst = con.prepareStatement("SELECT * FROM posts WHERE person_id = ?");
-				pst.setInt(1, id);
-				rs = pst.executeQuery();
-
-				while (rs.next()) {
-					this.posts.add(new Post(
-						rs.getInt("id"),
-						rs.getInt("person_id"),
-						rs.getString("content"),
-						rs.getTimestamp("created")));
-				}
 			}
 		} catch (ClassNotFoundException ex) {
 			// Catch exception
@@ -100,12 +81,12 @@ public class Person {
 		this.id = id;
 	}
 
-	public String getFirstName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.name = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -123,12 +104,4 @@ public class Person {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public ArrayList<Post> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(ArrayList<Post> posts) {
-		this.posts = posts;
-	}	
 }

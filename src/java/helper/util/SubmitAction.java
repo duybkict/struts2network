@@ -9,5 +9,5 @@ package helper.util;
  * @author DELL
  */
 public enum SubmitAction {
-	NONE, INSERT, UPDATE, DELETE
+	NONE, INSERT, UPDATE, DELETE, SECURITY
 }

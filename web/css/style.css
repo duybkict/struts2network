@@ -66,3 +66,24 @@ textarea {
 .post-box:hover .post-box-button.post-box-button-toggle {
 	visibility: visible;	
 }
+
+.photo-box img {
+	max-width: 220px;
+	min-width: 220px;
+	max-height: 220px;
+	min-height: 220px;
+}
+
+.photo-box .btn-group {
+	display: block;
+	margin-top: -60px;
+	margin-left: 25px;
+}
+
+.photo-box .photo-box-button.enable-toggle {
+	visibility: hidden;	
+}
+
+.photo-box:hover .photo-box-button.enable-toggle {
+	visibility: visible;
+}

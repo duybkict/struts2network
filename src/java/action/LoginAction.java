@@ -5,7 +5,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import helper.AuthHelper;
+import helper.AccountHelper;
 
 /**
  *
@@ -35,7 +35,7 @@ public class LoginAction extends ActionSupport {
 			valid = false;
 		}
 
-		if (valid && !AuthHelper.login(email, password)) {
+		if (valid && !AccountHelper.login(email, password)) {
 			addFieldError("email", "Incorrect Email or Password.");
 		}
 	}

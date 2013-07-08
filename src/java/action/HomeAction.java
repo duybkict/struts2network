@@ -5,7 +5,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import helper.AuthHelper;
+import helper.AccountHelper;
 import helper.DBHelper;
 import helper.util.SubmitAction;
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class HomeAction extends ActionSupport {
 			}			
 		}
 
-		this.user = AuthHelper.getLoggedInUser();
+		this.user = AccountHelper.getLoggedInUser();
 		this.posts = Post.getPosts(this.offset, this.limit);
 
 		return INPUT;
@@ -67,16 +67,8 @@ public class HomeAction extends ActionSupport {
 		return user;
 	}
 
-	public void setUser(Person user) {
-		this.user = user;
-	}
-
 	public ArrayList<Post> getPosts() {
 		return posts;
-	}
-
-	public void setPosts(ArrayList<Post> posts) {
-		this.posts = posts;
 	}
 
 	public int getOffset() {

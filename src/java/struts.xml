@@ -25,6 +25,11 @@
 			<result name="success" type="redirectAction">home</result>
 		</action>
 
+		<action name="account" class="action.AccountAction" method="execute">
+			<result name="input">/account.jsp</result>
+			<result name="success" type="redirectAction">account</result>
+		</action>
+
 		<action name="profile" class="action.HomeAction" method="execute">
 			<result name="success">/profile.jsp</result>
 		</action>

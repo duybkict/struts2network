@@ -23,9 +23,6 @@
 		<script type="text/javascript" src="js/moment.min.js" ></script>
     </head>
     <body>
-
-		<s:set var="userName"><s:property value="user.firstName" /> <s:property value="user.lastName" /></s:set>
-
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
@@ -41,7 +38,7 @@
 									<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu">
-									<li><a href="#">Account Settings</a></li>
+									<li><a href="<s:url action='account' />">Account Settings</a></li>
 									<li><a href="<s:url action='index' />">Logout</a></li>
 									<li class="divider"></li>
 									<li><a href="#modalHelp" data-toggle="modal">Help</a></li>
@@ -58,7 +55,7 @@
 				<div class="span4 offset1 well well-small">
 					<img src="holder.js/128x128" class="img-polaroid pull-left" style="margin-right:10px;">
 					<div class="sidebar-nav">						
-						<a href="#"><h4><s:property value="#userName"/></h4></a>							
+						<a href="#"><h4><s:property value="user.name" /></h4></a>							
 						<s:property value="user.email" /><br />
 						<a href="#" class="">Edit Profile</a>						
 					</div><!--/.well -->
@@ -87,7 +84,7 @@
 
 								<div class="media-body">
 									<h4 class="media-heading"><a href="${userLink}">
-											<s:property value="person.firstName" />&nbsp;<s:property value="person.lastName" />
+											<s:property value="person.name" />
 										</a></h4>
 									<div class="media" id="postContent_<s:property value='id'/>"><s:property value="content"/></div>								
 									<p class="muted">
