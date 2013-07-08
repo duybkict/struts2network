@@ -26,6 +26,13 @@
 		</action>
 
 		<action name="account" class="action.AccountAction" method="execute">
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">2097152</param>
+				<param name="allowedTypes">
+					image/png,image/gif,image/jpeg,image/jpg
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="input">/account.jsp</result>
 			<result name="success" type="redirectAction">account</result>
 		</action>

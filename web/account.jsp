@@ -57,12 +57,11 @@
 					<img id="profilePhoto" src="" class="img-polaroid hide" />
 					<img id="noPhoto" src="holder.js/220x220" class="img-polaroid " />
 					<div class="btn-group">
-						<button id="editPhoto" class="btn btn-large dropdown-toggle photo-box-button enable-toggle" data-toggle="dropdown">
+						<button id="editPhoto" class="btn dropdown-toggle photo-box-button enable-toggle" data-toggle="dropdown">
 							Edit Profile Photo
 						</button>
 						<ul class="dropdown-menu">
 							<li id="uploadPhoto"><a href="#"><i class="icon-camera"></i>&nbsp;Upload Photo</a></li>
-							<li id="discardPhoto"><a href="#"><i class="icon-ban-circle"></i>&nbsp;Discard Changes</a></li>
 							<li id="removePhoto"><a href="#"><i class="icon-remove"></i>&nbsp;Remove</a></li>
 						</ul>
 					</div>
@@ -134,16 +133,20 @@
 									<button type="submit" class="btn btn-primary">Change Password</button>
 								</div>
 							</div>
-							
+
 							<s:hidden name="submitAction" value="SECURITY" />							
 						</form>
 					</div>
 
+					<s:form action="account" method="POST" enctype="multipart/form-data" >
+						<s:file name="profileImage" />
+					</s:form>
+					<img src="profile_images/1.tmp"/>
 				</div><!--/span-->
 			</div>
 
 			<hr>
-<s:file id="fileUpload" name="fileUpload" onchange="readURL(this);" cssClass="hide"/>
+			
 			<footer>
 				<p>&copy; Company 2013</p>
 			</footer>
@@ -256,26 +259,18 @@
 			});
 
 			$("#uploadPhoto").bind("click", function(e) {
-				$("#fileUpload").click();
+				$("#account_profileImage").click();
 			});
 			
-			$("#removePhoto").bind("click", function(e) {
+			/*$("#removePhoto").bind("click", function(e) {
 				$("#fileUpload").val("");
 				$("#profilePhoto").addClass("hide");
 				$("#noPhoto").removeClass("hide");
-			});
+			});*/
 			
-			$("#fileUpload").change(function() {
-				if ($(this).files && $(this).files[0]) {
-					var reader = new FileReader();
-					reader.onload = function (e) {
-						$("#profilePhoto").attr("src", e.target.result);
-					};
-					reader.readAsDataURL($(this).files[0]);
-				}
-				
-				$("#profilePhoto").removeClass("hide");
-				$("#noPhoto").addClass("hide");
+			$("#account_profileImage").change(function() {
+				//alert(.html())
+				$(this).parents("form").first().submit();
 			});
 			
 			function readURL(input) {
