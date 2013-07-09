@@ -39,8 +39,20 @@ h4 {
 	width: 180px !important;
 }
 
-.sidebar-nav {
-	margin-left: 125px;
+.sidebar img {
+	margin-right:10px;
+	max-width: 128px;
+	min-width: 128px;
+	max-height: 128px;
+	min-height: 128px;
+}
+
+.media-object {
+	border: 1px solid #ccc;
+	max-width: 64px;
+	min-width: 64px;
+	max-height: 64px;
+	min-height: 64px;
 }
 
 textarea {
@@ -67,6 +79,10 @@ textarea {
 	visibility: visible;	
 }
 
+.photo-box {
+	position: relative;
+}
+
 .photo-box img {
 	max-width: 220px;
 	min-width: 220px;
@@ -74,10 +90,25 @@ textarea {
 	min-height: 220px;
 }
 
+.photo-box #noPhoto {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 0;
+}
+
+.photo-box #profilePhoto {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
+}
+
 .photo-box .btn-group {
-	display: block;
-	margin-top: -50px;
-	margin-left: 50px;
+	position: absolute;
+	top: 180px;
+	left: 50px;
+	z-index: 2;
 }
 
 .photo-box .photo-box-button.enable-toggle {

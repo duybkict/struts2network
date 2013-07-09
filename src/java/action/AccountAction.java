@@ -24,9 +24,6 @@ public class AccountAction extends ActionSupport {
 
 	private Person user;
 	private File profileImage;
-	private String profileImageContentType;
-	private String profileImageFileName;
-	private HttpServletRequest servletRequest;
 	private SubmitAction submitAction;
 
 	{
@@ -41,7 +38,6 @@ public class AccountAction extends ActionSupport {
 				ServletContext servletContext = ServletActionContext.getServletContext();
 				String path = "profile_images/";
 				String filePath = servletContext.getRealPath(path);
-				//String extension = FilenameUtils.getExtension(profileImageFileName);
 
 				File uploadDir = new File(filePath);
 				//if the folder does not exits, creating it
@@ -94,25 +90,5 @@ public class AccountAction extends ActionSupport {
 
 	public void setProfileImage(File profileImage) {
 		this.profileImage = profileImage;
-	}
-
-	public String getProfileImageContentType() {
-		return profileImageContentType;
-	}
-
-	public void setProfileImageContentType(String profileImageContentType) {
-		this.profileImageContentType = profileImageContentType;
-	}
-
-	public String getProfileImageFileName() {
-		return profileImageFileName;
-	}
-
-	public void setProfileImageFileName(String profileImageFileName) {
-		this.profileImageFileName = profileImageFileName;
-	}
-
-	public void setServletRequest(HttpServletRequest servletRequest) {
-		this.servletRequest = servletRequest;
 	}
 }
