@@ -6,10 +6,13 @@ package model;
 
 import com.mysql.jdbc.Connection;
 import helper.DBHelper;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import javax.servlet.ServletContext;
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 
 /**
  *
@@ -71,7 +74,7 @@ public class Person {
 		this.name = name;
 		this.email = email;
 		this.password = password;
-	}	
+	}
 
 	public int getId() {
 		return id;
@@ -103,5 +106,18 @@ public class Person {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getProfileImagePath() {
+		ServletContext servletContext = ServletActionContext.getServletContext();
+		String path = "profile_images/";
+		String filePath = servletContext.getRealPath(path);
+
+		File imagePath = new File(filePath, this.id + ".tmp");
+		if (imagePath.exists()) {
+			return "profile_images/" + this.id + ".tmp";
+		}
+		
+		return "profile_images/default.jpg";
 	}
 }

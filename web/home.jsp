@@ -18,8 +18,8 @@
 			<div class="row-fluid">
 
 				<!-- Side Bar -->
-				<div class="span5 well well-small sidebar">
-					<img src="profile_images/<s:property value="user.id" />.tmp" class="img-polaroid pull-left" />
+				<div class="span5 well sidebar">
+					<img src="<s:property value="user.profileImagePath" />" class="img-polaroid pull-left" />
 					<a href="#"><h4><s:property value="user.name" /></h4></a>							
 					<s:property value="user.email" /><br />
 					<a href="<s:url action="account" />" class="">Edit Profile</a>					
@@ -45,7 +45,7 @@
 							</div>
 							<div class="media">
 								<a class="pull-left" href="#">
-									<img src="profile_images/<s:property value="person.id" />.tmp" class="media-object" >
+									<img src="<s:property value="person.profileImagePath" />" class="media-object" >
 								</a>
 
 								<div class="media-body">

@@ -19,7 +19,7 @@
 
 				<!-- Profile Image -->
 				<div class="span3 photo-box">
-					<img id="profilePhoto" src="profile_images/<s:property value="user.id" />.tmp" class="img-polaroid" />
+					<img id="profilePhoto" src="<s:property value="user.profileImagePath" />" class="img-polaroid" />
 
 					<div class="btn-group">
 						<button id="editPhoto" class="btn dropdown-toggle photo-box-button enable-toggle" data-toggle="dropdown">
@@ -36,73 +36,75 @@
 				<div class="span9" >
 					<!-- General Settings -->
 					<div class="row well well-small">
-						<span class="lead">General Account Settings</span>
-						<hr />
 
 						<form onsubmit="return validateSaveSettings();" action="account" method="POST" class="form-horizontal">
-							<div class="control-group">
-								<label class="control-label" for="user_name">Name</label>
-								<div class="controls">
-									<s:textfield name="user.name" />
-									<span class="help-inline"></span>
+							<fieldset>
+								<legend>General Account Settings</legend>
+								<div class="control-group">
+									<label class="control-label" for="user_name">Name</label>
+									<div class="controls">
+										<s:textfield name="user.name" />
+										<span class="help-inline"></span>
+									</div>
 								</div>
-							</div>
 
-							<div class="control-group">
-								<label class="control-label" for="user_email">Email</label>
-								<div class="controls">
-									<s:textfield name="user.email" />
-									<span class="help-inline"></span>
+								<div class="control-group">
+									<label class="control-label" for="user_email">Email</label>
+									<div class="controls">
+										<s:textfield name="user.email" />
+										<span class="help-inline"></span>
+									</div>
+								</div>							
+
+								<div class="control-group">
+									<div class="controls">
+										<button type="submit" class="btn btn-primary">Save Settings</button>
+									</div>
 								</div>
-							</div>							
 
-							<div class="control-group">
-								<div class="controls">
-									<button type="submit" class="btn btn-primary">Save Settings</button>
-								</div>
-							</div>
-
-							<s:hidden name="submitAction" value="UPDATE" />
+								<s:hidden name="submitAction" value="UPDATE" />
+							</fieldset>
 						</form>
 					</div>
 
 					<!-- Change Password -->
 					<div class="row well well-small">
-						<span class="lead">Change Password</span>
-						<hr />
 
 						<form onsubmit="return validateChangePassword();" action="account" method="POST" class="form-horizontal">
-							<div class="control-group">
-								<label class="control-label" for="current_password">Current Password</label>
-								<div class="controls">
-									<input id="current_password" name="current_password" type="password" />
-									<span class="help-inline"></span>
+							<fieldset>
+								<legend>Change Pasword</legend>
+								<div class="control-group">
+									<label class="control-label" for="current_password">Current Password</label>
+									<div class="controls">
+										<input id="current_password" name="current_password" type="password" />
+										<span class="help-inline"></span>
+									</div>
 								</div>
-							</div>
 
-							<div class="control-group">
-								<label class="control-label" for="new_password">New Password</label>
-								<div class="controls">
-									<input id="new_password" name="new_password" type="password" />
-									<span class="help-inline"></span>
+								<div class="control-group">
+									<label class="control-label" for="new_password">New Password</label>
+									<div class="controls">
+										<input id="new_password" name="new_password" type="password" />
+										<span class="help-inline"></span>
+									</div>
 								</div>
-							</div>
 
-							<div class="control-group">
-								<label class="control-label" for="user_password">Retype Password</label>
-								<div class="controls">
-									<s:password name="user.password" />
-									<span class="help-inline"></span>
+								<div class="control-group">
+									<label class="control-label" for="user_password">Retype Password</label>
+									<div class="controls">
+										<s:password name="user.password" />
+										<span class="help-inline"></span>
+									</div>
 								</div>
-							</div>
 
-							<div class="control-group">
-								<div class="controls">
-									<button type="submit" class="btn btn-primary">Change Password</button>
+								<div class="control-group">
+									<div class="controls">
+										<button type="submit" class="btn btn-primary">Change Password</button>
+									</div>
 								</div>
-							</div>
 
-							<s:hidden name="submitAction" value="SECURITY" />							
+								<s:hidden name="submitAction" value="SECURITY" />							
+							</fieldset>
 						</form>
 					</div>
 
