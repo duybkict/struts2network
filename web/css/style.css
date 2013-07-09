@@ -40,11 +40,11 @@ h4 {
 }
 
 .sidebar img {
-	margin-right:10px;
-	max-width: 128px;
-	min-width: 128px;
-	max-height: 128px;
-	min-height: 128px;
+	margin-right: 20px;
+	max-width: 192px;
+	min-width: 192px;
+	max-height: 192px;
+	min-height: 192px;
 }
 
 .media-object {

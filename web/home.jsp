@@ -18,17 +18,17 @@
 			<div class="row-fluid">
 
 				<!-- Side Bar -->
-				<div class="span4 offset1 well well-small sidebar">
+				<div class="span5 well well-small sidebar">
 					<img src="profile_images/<s:property value="user.id" />.tmp" class="img-polaroid pull-left" />
 					<a href="#"><h4><s:property value="user.name" /></h4></a>							
 					<s:property value="user.email" /><br />
-					<a href="#" class="">Edit Profile</a>					
+					<a href="<s:url action="account" />" class="">Edit Profile</a>					
 
 					<div class="clearfix" ></div>
 				</div><!--/span4-->
 
 				<!-- Content -->
-				<div class="span6">
+				<div class="span7">
 
 					<textarea id="newPostContent" class="input-block-level" placeholder="What's on your mind?"></textarea>
 					<button id="newPostSubmit" class="btn btn-primary pull-right">Submit</button>

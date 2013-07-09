@@ -14,7 +14,7 @@
 					<li class="<s:if test="#active == 'home'">active</s:if>" ><a href="<s:url action='home' />">Home</a></li>
 					<%--<li class="<s:if test="#active == 'home'">profile</s:if>"><a href="<s:url action='profile' />">Profile</a></li>--%>
 					<%--<li class="<s:if test="#active == 'home'">active</s:if>"><a href=<s:url action='people' />#">Find Friends</a></li>--%>
-					<li class="dropdown <s:if test="#active == 'home'">active</s:if>">
+					<li class="dropdown <s:if test="#active == 'settings'">active</s:if>">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 							Settings 
 							<b class="caret"></b>
