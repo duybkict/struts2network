@@ -61,10 +61,14 @@ public class Post {
 		this.personId = personId;
 	}
 
+	public String getContentEscapeHtml() {
+		return content.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
+	}
+
 	public String getContent() {
 		return content;
 	}
-
+	
 	public void setContent(String content) {
 		this.content = content;
 	}

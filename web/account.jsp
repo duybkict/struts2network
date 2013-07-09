@@ -106,8 +106,9 @@
 						</form>
 					</div>
 
-					<s:form action="account" method="POST" enctype="multipart/form-data" cssClass="hide" >
+					<s:form action="account" method="POST" enctype="multipart/form-data" cssClass="" >
 						<s:file name="profileImage" />
+						<s:textfield name="submitAction" value="NONE" />
 					</s:form>
 
 				</div><!--/span-->
@@ -207,14 +208,12 @@
 				$("#account_profileImage").click();
 			});
 			
-			/*$("#removePhoto").bind("click", function(e) {
-				$("#fileUpload").val("");
-				$("#profilePhoto").addClass("hide");
-				$("#noPhoto").removeClass("hide");
-			});*/
+			$("#removePhoto").click(function() {
+				$("#account_submitAction").val("DELETE");
+				$("#account_profileImage").parents("form").first().submit();
+			});
 			
 			$("#account_profileImage").change(function() {
-				//alert(.html())
 				$(this).parents("form").first().submit();
 			});
 			

@@ -44,7 +44,7 @@ public class AccountAction extends ActionSupport {
 				if (!uploadDir.exists()) {
 					uploadDir.mkdirs();
 				}
-
+				
 				FileUtils.copyFile(profileImage, new File(uploadDir, this.user.getId() + ".tmp"));
 				return SUCCESS;
 			} catch (Exception e) {
@@ -60,11 +60,16 @@ public class AccountAction extends ActionSupport {
 				case SECURITY:
 					AccountHelper.updatePassword();
 					return SUCCESS;
+				case DELETE:
+					ServletContext servletContext = ServletActionContext.getServletContext();
+					String path = "profile_images/";
+					String filePath = servletContext.getRealPath(path);
+					(new File(filePath, this.user.getId() + ".tmp")).delete();
+					return SUCCESS;
 				default: // Incorrect submit action
 					this.submitAction = SubmitAction.NONE;
 			}
 		}
-
 		return INPUT;
 	}
 

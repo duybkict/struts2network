@@ -51,7 +51,8 @@
 								<div class="media-body">
 									<h4 class="media-heading">
 										<a href="#"><s:property value="person.name" /></a></h4>
-									<div class="media" id="postContent_<s:property value='id'/>"><s:property value="content" escape="false"/></div>								
+									<div class="media"><s:property value="contentEscapeHtml" escape="false"/></div>
+									<div class="hide" id="postContent_<s:property value='id'/>"><s:property value="content" escape="false"/></div>
 									<p class="muted">
 										<script type="text/javascript">
 											var date = '<s:date name="created" format="yyyy-MM-dd HH:mm:ss"/>';
