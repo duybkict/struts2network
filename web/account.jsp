@@ -106,7 +106,7 @@
 						</form>
 					</div>
 
-					<s:form action="account" method="POST" enctype="multipart/form-data" cssClass="" >
+					<s:form action="account" method="POST" enctype="multipart/form-data" cssClass="hide" >
 						<s:file name="profileImage" />
 						<s:textfield name="submitAction" value="NONE" />
 					</s:form>
