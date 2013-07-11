@@ -6,14 +6,11 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import helper.AccountHelper;
-import helper.DBHelper;
 import helper.util.SubmitAction;
 import java.io.File;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import model.Person;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.struts2.ServletActionContext;
 
 /**
@@ -24,7 +21,7 @@ public class AccountAction extends ActionSupport {
 
 	private Person user;
 	private File profileImage;
-	private SubmitAction submitAction;
+	private SubmitAction submitAction;	
 
 	{
 		this.user = AccountHelper.getLoggedInUser();

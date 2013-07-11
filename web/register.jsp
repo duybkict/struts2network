@@ -20,6 +20,7 @@
 
 		<script type="text/javascript" src="js/jquery.min.js" ></script>
 		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/validate.min.js" ></script>
 
 		<style type="text/css">
 			body {
@@ -32,23 +33,29 @@
     <body>
         <div class="container">
 
-			<form class="form-signin">
+			<form id="formSignUp" class="form-signin validate">
 				<h2 class="form-signin-heading">Sign Up</h2>
-				<div class="controls controls-row">
-					<s:textfield placeholder="First Name" cssClass="input-large" />
-					<s:textfield placeholder="Last Name" cssClass="input-medium" />
-				</div>
-				<div class="controls">
-					<s:textfield placeholder="Email" cssClass="input-block-level" />
-				</div>
-				<div class="controls">
-					<s:password placeholder="Password" cssClass="input-block-level" />
-				</div>
-				<div class="controls">
-					<s:password placeholder="Re-enter Password" cssClass="input-block-level" />
+
+				<div class="alert alert-error">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<label><strong>Warning!</strong></label>
 				</div>
 
-				<div class="controls pull-left">					
+				<div class="controls controls-row">
+					<s:textfield name="firstname" placeholder="First Name" cssClass="input-large" />
+					<s:textfield name="lastname" placeholder="Last Name" cssClass="input-medium" />
+				</div>
+				<div class="controls">
+					<s:textfield name="email" placeholder="Email" cssClass="input-block-level" />
+				</div>
+				<div class="controls">
+					<s:password name="password" placeholder="Password" cssClass="input-block-level" />
+				</div>
+				<div class="controls">
+					<s:password name="repassword" placeholder="Confirm Password" cssClass="input-block-level" />
+				</div>
+
+				<div class="controls pull-left">
 					<h4>Birthday</h4>
 					<sx:datetimepicker displayFormat="dd-MM-yyyy" value="%{'today'}" id="birthday"/>
 				</div>
@@ -60,12 +67,12 @@
 
 				<p>By clicking Sign Up, you agree to our <a href="#termsAndConditionsModal" data-toggle="modal">Terms</a> and that you have read our <a href="#dataUsePolicyModal" data-toggle="modal">Data use policy</a>.</p>
 
-				<button class="btn btn-large btn-primary" type="submit">Create New Account</button>
+				<input class="btn btn-large btn-primary submit" type="submit" value="Create New Account" />
 				<a href="login.jsp" style="margin-left:30px;vertical-align:bottom" >Already have an Account.</a>
 			</form>
 
 		</div> <!-- /container -->
-		
+
 		<!--Terms and Conditions Modal-->
 		<div id="termsAndConditionsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
@@ -95,7 +102,7 @@
 				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 			</div>
 		</div><!--/Terms and Conditions Modal-->
-		
+
 		<!--Data Use Policy Modal-->
 		<div id="dataUsePolicyModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
@@ -103,7 +110,7 @@
 				<h3 id="myModalLabel">Data Use Policy</h3>
 			</div>
 			<div class="modal-body">
-				
+
 				<p>
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				</p>
@@ -121,5 +128,71 @@
 				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 			</div>
 		</div><!--/Data Use Policy Modal-->
+
+		<script type="text/javascript">
+			var tmp = $.fn.popover.Constructor.prototype.show;
+			$.fn.popover.Constructor.prototype.show = function () {
+				tmp.call(this);
+				if (this.options.callback) {
+					this.options.callback();
+				}
+			}
+			
+			$('#formSignUp').validate({
+				rules: {
+					firstname: {
+						required: true,
+						minlength: 3,
+						maxlength: 32
+					},
+					lastname: {
+						required: true,
+						minlength: 3,
+						maxlength: 32
+					},
+					email: {
+						required: true,
+						email: true
+					},
+					password: {
+						required: true,
+						minlength: 6,
+						maxlength: 32
+					},
+					repassword: {
+						required: true,
+						equalTo: 'input[name=password]'
+					}
+				}, 
+				messages: {
+					firstname: {
+						required: 'First name must not be left blank.',
+						minlength: 'First name must has at least 3 characters.',
+						maxlength: 'First name must has no longer than 32 characters.'
+					},
+					lastname: {
+						required: 'Last name must not be left blank.',
+						minlength: 'Last name must has at least 3 characters.',
+						maxlength: 'Last name must has no longer than 32 characters.'
+					},
+					email: {
+						required: 'Email must not be left blank.',
+						email: 'Invalid email format.'
+					},
+					password: {
+						required: 'Password must not be left blank.',
+						minlength: 'Password must has at least 6 characters.',
+						maxlength: 'Password must has no longer than 32 characters.'
+					},
+					repassword: {
+						required: 'This field must not be left blank.',
+						equalTo: 'Passwords do not match.'
+					}
+				},
+				errorPlacement: function(error, element) {
+					error.appendTo(element.parents('form.validate').first().find('.alert').first());
+				}
+			});
+		</script>
     </body>
 </html>

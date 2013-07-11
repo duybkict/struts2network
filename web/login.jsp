@@ -29,12 +29,9 @@
 				max-width:  300px;				
 			}
 		</style>
-
-		<sx:head />
     </head>
     <body>
         <div class="container">
-
 			<form class="form-signin" action="login" method="post">
 				<h2 class="form-signin-heading">Sign In</h2>
 				<div class="controls">
