@@ -24,7 +24,7 @@ public class HomeAction extends ActionSupport {
 	private int offset;
 	private int limit;
 	private SubmitAction submitAction;
-	
+
 	{
 		offset = 0;
 		limit = 5;
@@ -46,7 +46,7 @@ public class HomeAction extends ActionSupport {
 					return SUCCESS;
 				default: // Incorrect submit action
 					this.submitAction = SubmitAction.NONE;
-			}			
+			}
 		}
 
 		this.user = AccountHelper.getLoggedInUser();
@@ -86,7 +86,7 @@ public class HomeAction extends ActionSupport {
 	public void setLimit(int limit) {
 		this.limit = limit;
 	}
-	
+
 	public int getCountPages() {
 		return (Post.getCountPosts() - 1) / limit;
 	}

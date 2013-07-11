@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : account
     Created on : Jul 6, 2013, 4:11:29 PM
     Author     : DELL
@@ -59,7 +59,7 @@
 										<s:textfield name="user.email" />
 										<span class="help-inline"></span>
 									</div>
-								</div>							
+								</div>
 
 								<div class="control-group">
 									<div class="controls">
@@ -109,7 +109,7 @@
 									</div>
 								</div>
 
-								<s:hidden name="submitAction" value="SECURITY" />							
+								<s:hidden name="submitAction" value="SECURITY" />
 							</fieldset>
 						</form>
 					</div>
@@ -124,9 +124,9 @@
 
 			<jsp:include page="template/footer.jsp" />
 
-		</div><!--/.fluid-container-->		
+		</div><!--/.fluid-container-->
 
-		<script type="text/javascript">			
+		<script type="text/javascript">
 			$('#formChangeSettings').validate({
 				rules: {
 					'user.name': {
@@ -153,7 +153,7 @@
 				},
 				validClass: 'success'
 			});
-			
+
 			$('#formChangePassword').validate({
 				rules: {
 					'current_password': {
@@ -191,11 +191,11 @@
 				validClass: 'success',
 				ignore: '.ignore'
 			});
-			
+
 			$("#editPhoto").focus(function() {
 				$(this).removeClass("enable-toggle");
 			});
-			
+
 			$("#editPhoto").blur(function() {
 				$(this).addClass("enable-toggle");
 			});
@@ -203,16 +203,16 @@
 			$("#uploadPhoto").bind("click", function(e) {
 				$("#account_profileImage").click();
 			});
-			
+
 			$("#removePhoto").click(function() {
 				$("#account_submitAction").val("DELETE");
 				$("#account_profileImage").parents("form").first().submit();
 			});
-			
+
 			$("#account_profileImage").change(function() {
 				$(this).parents("form").first().submit();
 			});
-			
+
 			/*function readURL(input) {
 				if (input.files && input.files[0]) {
 					var reader = new FileReader();

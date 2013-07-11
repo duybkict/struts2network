@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : home
     Created on : Jul 1, 2013, 9:07:18 AM
     Author     : DELL
@@ -14,10 +14,10 @@
 		<title>Home</title>
 		<jsp:include page="template/documents.jsp" />
 	</head>
-	
-    <body>		
+
+    <body>
 		<s:set var="active" >home</s:set>
-		<jsp:include page="template/navbar.jsp" />		
+		<jsp:include page="template/navbar.jsp" />
 
 		<div class="container">
 			<div class="row-fluid">
@@ -25,9 +25,9 @@
 				<!-- Side Bar -->
 				<div class="span5 well sidebar">
 					<img src="<s:property value="user.profileImagePath" />" class="img-polaroid pull-left" />
-					<a href="#"><h4><s:property value="user.name" /></h4></a>							
+					<a href="#"><h4><s:property value="user.name" /></h4></a>
 					<s:property value="user.email" /><br />
-					<a href="<s:url action="account" />" class="">Edit Profile</a>					
+					<a href="<s:url action="account" />" class="">Edit Profile</a>
 
 					<div class="clearfix" ></div>
 				</div><!--/span4-->
@@ -37,7 +37,7 @@
 
 					<textarea id="newPostContent" class="input-block-level" placeholder="What's on your mind?"></textarea>
 					<button id="newPostSubmit" class="btn btn-primary pull-right">Submit</button>
-					<div class="clearfix"></div>				
+					<div class="clearfix"></div>
 
 					<s:iterator value="posts">
 						<div class="post-box">
@@ -132,7 +132,7 @@
 			</div>
 		</div><!--/modalEditPost-->
 
-		<script type="text/javascript">			
+		<script type="text/javascript">
 			$("#newPostSubmit").click(function() {
 				// Validate
 				var postContent = $("#newPostContent").val().trim();
@@ -140,13 +140,13 @@
 					alert("Post content must not be left blank!");
 					return;
 				}
-				
+
 				// Submit
 				$("#postForm_post_content").val(postContent);
 				$("#postForm_submitAction").val("INSERT");
 				$("#postForm").submit();
 			})
-			
+
 			$("#editPostSubmit").click(function() {
 				// Validate
 				var postContent = $("#editPostContent").val().trim();
@@ -154,28 +154,28 @@
 					alert("Post content must not be left blank!");
 					return;
 				}
-				
+
 				// Submit
 				$("#postForm_post_content").val(postContent);
 				$("#postForm_submitAction").val("UPDATE");
 				$("#postForm").submit();
 			})
-			
+
 			$(".postDelete").click(function() {
 				var postId = $(this).attr("postId");
-				
+
 				// Confirm
 				if (confirm("Are you sure you want to permanently delete this post?")) {
 					// Submit
 					$("#postForm_post_id").val(postId);
 					$("#postForm_submitAction").val("DELETE");
-					$("#postForm").submit();				
+					$("#postForm").submit();
 				}
 			})
-			
+
 			$(".postEdit").click(function() {
 				var postId = $(this).attr("postId");
-				
+
 				$("#postForm_post_id").val(postId);
 				$("#editPostContent").val($("#postContent_" + postId).html());
 			})

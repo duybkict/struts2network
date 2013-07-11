@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : register
     Created on : Jul 2, 2013, 2:58:27 PM
     Author     : DELL
@@ -124,7 +124,7 @@
 			</div>
 		</div><!--/Data Use Policy Modal-->
 
-		<script type="text/javascript">			
+		<script type="text/javascript">
 			var validator = $('#formSignUp').validate({
 				rules: {
 					firstname: {
@@ -150,7 +150,7 @@
 						required: true,
 						equalTo: 'input[name=password]'
 					}
-				}, 
+				},
 				messages: {
 					firstname: {
 						required: 'First name must not be left blank.',
@@ -175,7 +175,7 @@
 						required: 'Confirm password is required.',
 						equalTo: 'Passwords do not match.'
 					}
-				},				
+				},
 				invalidHandler: function() {
 					$(this).find('.alert').first().show();
 				},
@@ -185,7 +185,7 @@
 				validClass: 'success',
 				onkeyup: false
 			});
-			
+
 			$('#formSignUp input').blur(function() {
 				if (validator.numberOfInvalids() <= 0) {
 					$('#formSignUp .alert').hide();

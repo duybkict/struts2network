@@ -21,7 +21,7 @@ public class AccountAction extends ActionSupport {
 
 	private Person user;
 	private File profileImage;
-	private SubmitAction submitAction;	
+	private SubmitAction submitAction;
 	private String new_password;
 
 	{
@@ -42,7 +42,7 @@ public class AccountAction extends ActionSupport {
 				if (!uploadDir.exists()) {
 					uploadDir.mkdirs();
 				}
-				
+
 				FileUtils.copyFile(profileImage, new File(uploadDir, this.user.getId() + ".tmp"));
 				return SUCCESS;
 			} catch (Exception e) {

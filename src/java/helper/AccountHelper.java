@@ -20,7 +20,7 @@ public class AccountHelper {
 
 	private AccountHelper() {
 	}
-	
+
 	public static Person getLoggedInUser() {
 		return loggedInUser;
 	}
@@ -43,7 +43,7 @@ public class AccountHelper {
 					rs.getString("name"),
 					rs.getString("email"),
 					rs.getString("password"));
-				
+
 				return true;
 			}
 		} catch (ClassNotFoundException ex) {
@@ -51,7 +51,7 @@ public class AccountHelper {
 		} catch (SQLException ex) {
 			// Catch exception
 		} catch (Exception ex) {
-		
+
 		} finally {
 			try {
 				if (rs != null) {
@@ -68,8 +68,8 @@ public class AccountHelper {
 
 		return false;
 	}
-	
-	public static void updateSettings() {		
+
+	public static void updateSettings() {
 		Connection connection = null;
 		PreparedStatement pst = null;
 
@@ -99,8 +99,8 @@ public class AccountHelper {
 			}
 		}
 	}
-	
-	public static void updatePassword() {		
+
+	public static void updatePassword() {
 		Connection connection = null;
 		PreparedStatement pst = null;
 

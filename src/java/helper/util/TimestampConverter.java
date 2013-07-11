@@ -25,7 +25,7 @@ public class TimestampConverter extends StrutsTypeConverter {
                     return null;
                 }
                return new java.sql.Timestamp(sdf.parse(values[0]).getTime());
-        }catch(Exception e){        
+        }catch(Exception e){
             throw new TypeConversionException(e);
         }
     }

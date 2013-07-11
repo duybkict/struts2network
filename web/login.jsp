@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : register
     Created on : Jul 2, 2013, 2:58:27 PM
     Author     : DELL
@@ -20,7 +20,7 @@
 				background-color: #f5f5f5;
 			}
 			.form-signin {
-				max-width:  300px;				
+				max-width:  300px;
 			}
 		</style>
     </head>

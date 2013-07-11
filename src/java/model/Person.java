@@ -117,7 +117,7 @@ public class Person {
 		if (imagePath.exists()) {
 			return "profile_images/" + this.id + ".tmp";
 		}
-		
+
 		return "profile_images/default.jpg";
 	}
 }

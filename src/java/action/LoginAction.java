@@ -24,7 +24,7 @@ public class LoginAction extends ActionSupport {
 	@Override
 	public void validate() {
 		boolean valid = true;
-		
+
 		if (email.trim().length() == 0) {
 			addFieldError("email", "Email is required.");
 			valid = false;

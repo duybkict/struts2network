@@ -3,10 +3,10 @@ body {
 	padding-bottom: 40px;
 }
 h4 {
-	margin-bottom: 2px;	
+	margin-bottom: 2px;
 }
 .box {
-	border: 1px solid #ccc;	
+	border: 1px solid #ccc;
 }
 
 .form-signin {
@@ -39,7 +39,7 @@ h4 {
 	width: 180px !important;
 }
 
-.sidebar img {	
+.sidebar img {
 	margin-right: 15px;
 	max-width: 160px;
 	min-width: 160px;
@@ -76,7 +76,7 @@ textarea {
 }
 
 .post-box:hover .post-box-button.post-box-button-toggle {
-	visibility: visible;	
+	visibility: visible;
 }
 
 .photo-box {
@@ -112,7 +112,7 @@ textarea {
 }
 
 .photo-box .photo-box-button.enable-toggle {
-	visibility: hidden;	
+	visibility: hidden;
 }
 
 .photo-box:hover .photo-box-button.enable-toggle {

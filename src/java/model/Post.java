@@ -23,9 +23,9 @@ public class Post {
 	private String content;
 	private Timestamp created;
 	private Timestamp modified;
-	
+
 	private Person person;
-	
+
 	private static int countPosts = -1;
 
 	// <editor-fold defaultstate="collapsed" desc="constructors">
@@ -43,7 +43,7 @@ public class Post {
 		this.created = created;
 	}
 	// </editor-fold>
-	
+
 	// <editor-fold defaultstate="collapsed" desc="getters and setters">
 	public int getId() {
 		return id;
@@ -68,7 +68,7 @@ public class Post {
 	public String getContent() {
 		return content;
 	}
-	
+
 	public void setContent(String content) {
 		this.content = content;
 	}
@@ -97,7 +97,7 @@ public class Post {
 		this.modified = modified;
 	}
 	// </editor-fold>
-	
+
 	// <editor-fold defaultstate="collapsed" desc="database access">
 	public static ArrayList<Post> getPosts() {
 		ArrayList<Post> posts = new ArrayList<Post>();
