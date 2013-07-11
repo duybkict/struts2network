@@ -36,9 +36,11 @@
 			<form id="formSignUp" class="form-signin validate">
 				<h2 class="form-signin-heading">Sign Up</h2>
 
-				<div class="alert alert-error">
+				<div class="alert alert-error hide">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
 					<label><strong>Warning!</strong></label>
+					<div class="alert-messages">
+					</div>
 				</div>
 
 				<div class="controls controls-row">
@@ -57,7 +59,7 @@
 
 				<div class="controls pull-left">
 					<h4>Birthday</h4>
-					<sx:datetimepicker displayFormat="dd-MM-yyyy" value="%{'today'}" id="birthday"/>
+					<sx:datetimepicker displayFormat="dd-MM-yyyy" value="%{'today'}" id="birthday" />
 				</div>
 				<div class="controls pull-right">
 					<h4>Gender</h4>
@@ -65,7 +67,7 @@
 				</div>
 				<div class="clearfix"></div>
 
-				<p>By clicking Sign Up, you agree to our <a href="#termsAndConditionsModal" data-toggle="modal">Terms</a> and that you have read our <a href="#dataUsePolicyModal" data-toggle="modal">Data use policy</a>.</p>
+				<p>By clicking Sign Up, you agree to our <a href="#modalTermsAndConditions" data-toggle="modal">Terms</a> and that you have read our <a href="#modalDataUsePolicy" data-toggle="modal">Data use policy</a>.</p>
 
 				<input class="btn btn-large btn-primary submit" type="submit" value="Create New Account" />
 				<a href="login.jsp" style="margin-left:30px;vertical-align:bottom" >Already have an Account.</a>
@@ -74,7 +76,7 @@
 		</div> <!-- /container -->
 
 		<!--Terms and Conditions Modal-->
-		<div id="termsAndConditionsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div id="modalTermsAndConditions" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				<h3 id="myModalLabel">Terms And Conditions</h3>
@@ -104,13 +106,12 @@
 		</div><!--/Terms and Conditions Modal-->
 
 		<!--Data Use Policy Modal-->
-		<div id="dataUsePolicyModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div id="modalDataUsePolicy" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				<h3 id="myModalLabel">Data Use Policy</h3>
 			</div>
 			<div class="modal-body">
-
 				<p>
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				</p>
@@ -138,7 +139,7 @@
 				}
 			}
 			
-			$('#formSignUp').validate({
+			var validator = $('#formSignUp').validate({
 				rules: {
 					firstname: {
 						required: true,
@@ -185,12 +186,25 @@
 						maxlength: 'Password must has no longer than 32 characters.'
 					},
 					repassword: {
-						required: 'This field must not be left blank.',
+						required: 'Confirm password is required.',
 						equalTo: 'Passwords do not match.'
 					}
+				},				
+				invalidHandler: function() {
+					$(this).find('.alert').first().show();
 				},
 				errorPlacement: function(error, element) {
-					error.appendTo(element.parents('form.validate').first().find('.alert').first());
+					error.appendTo(element.parents('form').first().find('.alert-messages').first());
+				},
+				validClass: 'success',
+				onkeyup: false
+			});
+			
+			$('#formSignUp input').blur(function() {
+				if (validator.numberOfInvalids() <= 0) {
+					$('#formSignUp .alert').hide();
+				} else {
+					$('#formSignUp .alert').show();
 				}
 			});
 		</script>
