@@ -14,6 +14,7 @@
 		<title>Account Settings</title>
 		<jsp:include page="template/documents.jsp" />
 	</head>
+
     <body>
 		<s:set var="active" >settings</s:set>
 		<jsp:include page="template/navbar.jsp" />
@@ -41,14 +42,14 @@
 					<!-- General Settings -->
 					<div class="row well well-small">
 
-						<form onsubmit="return validateSaveSettings();" action="account" method="POST" class="form-horizontal">
+						<form id="formChangeSettings" action="account" method="POST" class="form-horizontal">
 							<fieldset>
 								<legend>General Account Settings</legend>
 								<div class="control-group">
 									<label class="control-label" for="user_name">Name</label>
 									<div class="controls">
 										<s:textfield name="user.name" />
-										<span class="help-inline"></span>
+										<span class="help-inline error"></span>
 									</div>
 								</div>
 
@@ -74,13 +75,14 @@
 					<!-- Change Password -->
 					<div class="row well well-small">
 
-						<form onsubmit="return validateChangePassword();" action="account" method="POST" class="form-horizontal">
+						<form id="formChangePassword" action="account" method="POST" class="form-horizontal">
 							<fieldset>
 								<legend>Change Pasword</legend>
 								<div class="control-group">
 									<label class="control-label" for="current_password">Current Password</label>
 									<div class="controls">
-										<input id="current_password" name="current_password" type="password" />
+										<s:hidden name="user.password" />
+										<input name="current_password" type="password" />
 										<span class="help-inline"></span>
 									</div>
 								</div>
@@ -88,15 +90,15 @@
 								<div class="control-group">
 									<label class="control-label" for="new_password">New Password</label>
 									<div class="controls">
-										<input id="new_password" name="new_password" type="password" />
+										<s:password name="new_password" />
 										<span class="help-inline"></span>
 									</div>
 								</div>
 
 								<div class="control-group">
-									<label class="control-label" for="user_password">Retype Password</label>
+									<label class="control-label" for="confirm_password">Confirm Password</label>
 									<div class="controls">
-										<s:password name="user.password" />
+										<s:password name="confirm_password" />
 										<span class="help-inline"></span>
 									</div>
 								</div>
@@ -124,83 +126,71 @@
 
 		</div><!--/.fluid-container-->		
 
-		<script type="text/javascript">
-			var password = <s:property value="user.password" />;
-			
-			function validateSaveSettings() {				
-				var user_name = $("#user_name").val();
-				var user_email = $("#user_email").val();
-				var valid = true;
-				
-				removeFieldErrors();
-				
-				if (user_email == null || user_email == "") {
-					addFieldError($("#user_email"), "Email must not be left blank.");
-					valid = false;
-				}
-				
-				if (user_name == null || user_name == "") {
-					addFieldError($("#user_name"), "Name must not be left blank.");
-					valid = false;
-				}
-				
-				if (valid) {
-					if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(user_email)) {
-						addFieldError($("#user_email"), "Invalid email address.");
-						valid = false;
+		<script type="text/javascript">			
+			$('#formChangeSettings').validate({
+				rules: {
+					'user.name': {
+						required: true,
+						minlength: 3
+					},
+					'user.email': {
+						required: true,
+						email: true
 					}
-				
-					if (user_name.length < 5) {
-						addFieldError($("#user_name"), "Name should be at least 5 characters.");
-						valid = false;
+				},
+				messages: {
+					'user.name': {
+						required: 'Name must not be left blank.',
+						minlength: 'Name must have at least {0} characters.'
+					},
+					'user.email': {
+						required: 'Email must not be left blank.',
+						email: 'Invalid email format.'
 					}
-				}				
-				
-				return valid;
-			}
+				},
+				errorPlacement: function(error, element) {
+					error.appendTo(element.next('span.help-inline'));
+				},
+				validClass: 'success'
+			});
 			
-			function validateChangePassword() {
-				var current_password = $("#current_password").val();
-				var new_password = $("#new_password").val();
-				var re_password = $("#user_password").val();
-				var valid = true;
-				
-				removeFieldErrors();
-				
-				if (new_password == null || new_password == "") {
-					addFieldError($("#new_password"), "New password must not be left blank.");
-					valid = false;
-				} else if (new_password.length < 5) {
-					addFieldError($("#new_password"), "New password should be at least 5 characters.");
-					valid = false;				
-				}
-				
-				if (current_password == null || current_password == "") {
-					addFieldError($("#current_password"), "Current password must not be left blank.");
-					valid = false;
-				} else if (current_password != password) {
-					addFieldError($("#current_password"), "Incorrect password.");
-					valid = false;
-				}
-				
-				if (valid && new_password != re_password) {
-					addFieldError($("#user_password"), "Passwords mismatch.");
-					valid = false;
-				}
-				
-				return valid;
-			}
-			
-			function removeFieldErrors() {
-				$(".control-group").removeClass("error");			
-				$(".help-inline").html("");
-			}
-			
-			function addFieldError(o, message) {
-				o.parents(".control-group").first().addClass("error");
-				o.siblings(".help-inline").html(message);
-				o.focus();
-			}
+			$('#formChangePassword').validate({
+				rules: {
+					'current_password': {
+						required: true,
+						equalTo: 'input[name="user.password"]'
+					},
+					'new_password': {
+						required: true,
+						minlength: 6,
+						maxlength: 32
+					},
+					'confirm_password': {
+						required: true,
+						equalTo: 'input[name=new_password]'
+					}
+				},
+				messages: {
+					'current_password': {
+						required: 'Password must not be left blank.',
+						equalTo: 'Wrong password.'
+					},
+					'new_password': {
+						required: 'New password must not be left blank.',
+						minlength: 'new password must have at least {0} characters.',
+						maxlength: 'new password must have at max {0} characters.'
+					},
+					'confirm_password': {
+						required: 'Please confirm password.',
+						equalTo: 'Passwords do not match.'
+					}
+				},
+				errorPlacement: function(error, element) {
+					error.appendTo(element.next('span.help-inline'));
+				},
+				validClass: 'success',
+				ignore: '.ignore'
+			});
 			
 			$("#editPhoto").focus(function() {
 				$(this).removeClass("enable-toggle");
@@ -223,7 +213,7 @@
 				$(this).parents("form").first().submit();
 			});
 			
-			function readURL(input) {
+			/*function readURL(input) {
 				if (input.files && input.files[0]) {
 					var reader = new FileReader();
 					reader.onload = function (e) {
@@ -234,7 +224,7 @@
 					};
 					reader.readAsDataURL(input.files[0]);
 				}
-			}
+			}*/
 		</script>
 	</body>
 </html>

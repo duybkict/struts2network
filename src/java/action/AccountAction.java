@@ -22,6 +22,7 @@ public class AccountAction extends ActionSupport {
 	private Person user;
 	private File profileImage;
 	private SubmitAction submitAction;	
+	private String new_password;
 
 	{
 		this.user = AccountHelper.getLoggedInUser();
@@ -55,6 +56,7 @@ public class AccountAction extends ActionSupport {
 					AccountHelper.updateSettings();
 					return SUCCESS;
 				case SECURITY:
+					user.setPassword(this.new_password);
 					AccountHelper.updatePassword();
 					return SUCCESS;
 				case DELETE:
@@ -92,5 +94,13 @@ public class AccountAction extends ActionSupport {
 
 	public void setProfileImage(File profileImage) {
 		this.profileImage = profileImage;
+	}
+
+	public String getNew_password() {
+		return new_password;
+	}
+
+	public void setNew_password(String new_password) {
+		this.new_password = new_password;
 	}
 }

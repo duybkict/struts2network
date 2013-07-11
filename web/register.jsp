@@ -154,13 +154,13 @@
 				messages: {
 					firstname: {
 						required: 'First name must not be left blank.',
-						minlength: 'First name must has at least 3 characters.',
-						maxlength: 'First name must has no longer than 32 characters.'
+						minlength: 'First name must have at least {0} characters.',
+						maxlength: 'First name must have no longer than {0} characters.'
 					},
 					lastname: {
 						required: 'Last name must not be left blank.',
-						minlength: 'Last name must has at least 3 characters.',
-						maxlength: 'Last name must has no longer than 32 characters.'
+						minlength: 'Last name must have at least {0} characters.',
+						maxlength: 'Last name must have no longer than {0} characters.'
 					},
 					email: {
 						required: 'Email must not be left blank.',
@@ -168,8 +168,8 @@
 					},
 					password: {
 						required: 'Password must not be left blank.',
-						minlength: 'Password must has at least 6 characters.',
-						maxlength: 'Password must has no longer than 32 characters.'
+						minlength: 'Password must have at least {0} characters.',
+						maxlength: 'Password must have no longer than {0} characters.'
 					},
 					repassword: {
 						required: 'Confirm password is required.',
