@@ -9,7 +9,12 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-    <jsp:include page="template/header.jsp" />
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Home</title>
+		<jsp:include page="template/documents.jsp" />
+	</head>
+	
     <body>		
 		<s:set var="active" >home</s:set>
 		<jsp:include page="template/navbar.jsp" />		
@@ -37,9 +42,9 @@
 					<s:iterator value="posts">
 						<div class="post-box">
 							<div class="btn-group pull-right post-box-button <s:if test='user.id == person.id'>post-box-button-toggle</s:if>">
-								<button class="close dropdown-toggle" data-toggle="dropdown">&times;</button>
-								<ul class="dropdown-menu pull-left">
-									<li class="postEdit" postId="<s:property value='id'/>" ><a href="#modalEditPost" data-toggle="modal">Edit Post</a></li>
+									<button class="close dropdown-toggle" data-toggle="dropdown">&times;</button>
+									<ul class="dropdown-menu pull-left">
+										<li class="postEdit" postId="<s:property value='id'/>" ><a href="#modalEditPost" data-toggle="modal">Edit Post</a></li>
 									<li class="postDelete" postId="<s:property value='id'/>"><a href="#">Delete Post</a></li>
 								</ul>
 							</div>
@@ -96,7 +101,7 @@
 							</li>
 						</ul>
 					</div><!--/pagination-->
-					
+
 				</div><!--/span-->
 			</div><!--/row-->
 
