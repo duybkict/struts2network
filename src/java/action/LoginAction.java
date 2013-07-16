@@ -23,25 +23,14 @@ public class LoginAction extends ActionSupport {
 
 	@Override
 	public void validate() {
-		boolean valid = true;
-
-		if (email.trim().length() == 0) {
-			addFieldError("email", "Email is required.");
-			valid = false;
-		}
-
-		if (password != null && password.trim().length() == 0) {
-			addFieldError("password", "Password is required.");
-			valid = false;
-		}
-
-		if (valid && !AccountHelper.login(email, password)) {
+		if (!AccountHelper.login(email, password)) {
 			addFieldError("email", "Incorrect Email or Password.");
 		}
 	}
 
 	@Override
 	public String execute() throws Exception {
+		MessageHelper.clearMessages();
 
 		return SUCCESS;
 	}

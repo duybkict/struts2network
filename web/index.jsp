@@ -32,6 +32,26 @@
 		</div>
 
 		<div class="container">
+			<s:iterator value="errorMessages" >
+				<div class="alert alert-error">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Error!</strong> <s:property/>
+				</div>
+			</s:iterator>
+
+			<s:iterator value="warningMessages" >
+				<div class="alert">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Warning!</strong> <s:property/>
+				</div>
+			</s:iterator>
+
+			<s:iterator value="infoMessages" >
+				<div class="alert alert-info">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Info!</strong> <s:property/>
+				</div>
+			</s:iterator>
 
 			<!-- Main hero unit for a primary marketing message or call to action -->
 			<div class="hero-unit">

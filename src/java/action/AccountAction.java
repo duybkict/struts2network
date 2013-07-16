@@ -32,6 +32,8 @@ public class AccountAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		MessageHelper.clearMessages();
+
 		if (this.profileImage != null) {
 			try {
 				ServletContext servletContext = ServletActionContext.getServletContext();

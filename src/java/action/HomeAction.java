@@ -27,6 +27,7 @@ public class HomeAction extends ActionSupport {
 	private SubmitAction submitAction;
 
 	{
+		user = AccountHelper.getLoggedInUser();
 		offset = 0;
 		limit = 5;
 		submitAction = SubmitAction.NONE;
@@ -34,6 +35,12 @@ public class HomeAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		MessageHelper.clearMessages();
+		if (user == null) {
+			MessageHelper.addError("You are not authorized to view this page.");
+			return ERROR;
+		}
+
 		if (this.submitAction != SubmitAction.NONE) {
 			switch (this.submitAction) {
 				case INSERT:
@@ -50,7 +57,6 @@ public class HomeAction extends ActionSupport {
 			}
 		}
 
-		this.user = AccountHelper.getLoggedInUser();
 		this.posts = PostHelper.getPosts(this.offset, this.limit);
 
 		return INPUT;
