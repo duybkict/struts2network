@@ -36,9 +36,7 @@ public class HomeAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		if (user == null) {
-
 			throw new Exception("You are not authorized to see this page.");
-			//return ERROR;
 		}
 
 		if (this.submitAction != SubmitAction.NONE) {

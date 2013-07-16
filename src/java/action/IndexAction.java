@@ -5,32 +5,19 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import java.util.ArrayList;
+import helper.AccountHelper;
 
 /**
  *
  * @author DELL
  */
 public class IndexAction extends ActionSupport {
-
 	@Override
 	public String execute() throws Exception {
+		if (AccountHelper.isLoggedIn()) {
+			AccountHelper.logout();
+		}
 
 		return SUCCESS;
 	}
-
-	// <editor-fold defaultstate="collapsed" desc="getters and setters">	
-	@Override
-	public ArrayList<String> getErrorMessages() {
-		return MessageHelper.getErrors();
-	}
-
-	public ArrayList<String> getWarningMessages() {
-		return MessageHelper.getWarnings();
-	}
-
-	public ArrayList<String> getInfoMessages() {
-		return MessageHelper.getInfos();
-	}
-	// </editor-fold>
 }

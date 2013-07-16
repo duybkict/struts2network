@@ -32,7 +32,9 @@ public class AccountAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		MessageHelper.clearMessages();
+		if (user == null) {
+			throw new Exception("You are not authorized to see this page.");
+		}
 
 		if (this.profileImage != null) {
 			try {
