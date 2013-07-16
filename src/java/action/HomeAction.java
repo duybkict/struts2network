@@ -35,10 +35,10 @@ public class HomeAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		MessageHelper.clearMessages();
 		if (user == null) {
-			MessageHelper.addError("You are not authorized to view this page.");
-			return ERROR;
+
+			throw new Exception("You are not authorized to see this page.");
+			//return ERROR;
 		}
 
 		if (this.submitAction != SubmitAction.NONE) {
