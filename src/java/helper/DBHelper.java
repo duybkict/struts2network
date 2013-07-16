@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,10 +41,26 @@ public class DBHelper {
 
 			} catch (FileNotFoundException ex) {
 				// Catch exception
+				System.out.println();
 			} catch (IOException ex) {
 				// Catch exception
+				System.out.println();
 			}
 		}
 		return con;
+	}
+
+	public static String getProfileImageRoot() {
+		try {
+			Properties prop = new Properties();
+			prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("/custom-config.properties"));
+
+			return prop.getProperty("profile_image_root");
+		} catch (IOException ex) {
+			// Catch exception
+			System.out.println();
+		}
+
+		return "/";
 	}
 }

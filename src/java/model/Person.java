@@ -4,6 +4,7 @@
  */
 package model;
 
+import helper.DBHelper;
 import java.io.File;
 import javax.servlet.ServletContext;
 import org.apache.struts2.ServletActionContext;
@@ -70,15 +71,16 @@ public class Person {
 
 	public String getProfileImagePath() {
 		ServletContext servletContext = ServletActionContext.getServletContext();
-		String path = "profile_images/";
+		String profileImageRoot = DBHelper.getProfileImageRoot();
+		String path = profileImageRoot;
 		String filePath = servletContext.getRealPath(path);
 
 		File imagePath = new File(filePath, this.id + ".tmp");
 		if (imagePath.exists()) {
-			return "profile_images/" + this.id + ".tmp";
+			return profileImageRoot + this.id + ".tmp";
 		}
 
-		return "profile_images/default.jpg";
+		return profileImageRoot + "default.jpg";
 	}
 	// </editor-fold>
 }

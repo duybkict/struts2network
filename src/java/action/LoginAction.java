@@ -46,6 +46,7 @@ public class LoginAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	// <editor-fold defaultstate="collapsed" desc="getters and setters">
 	public String getEmail() {
 		return email;
 	}
@@ -61,4 +62,5 @@ public class LoginAction extends ActionSupport {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	// </editor-fold>
 }

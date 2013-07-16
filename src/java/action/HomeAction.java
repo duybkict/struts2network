@@ -56,6 +56,7 @@ public class HomeAction extends ActionSupport {
 		return INPUT;
 	}
 
+	// <editor-fold defaultstate="collapsed" desc="getters and setters">
 	public Post getPost() {
 		return post;
 	}
@@ -99,4 +100,5 @@ public class HomeAction extends ActionSupport {
 	public void setSubmitAction(SubmitAction submitAction) {
 		this.submitAction = submitAction;
 	}
+	// </editor-fold>
 }

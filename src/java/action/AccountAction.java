@@ -6,6 +6,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import helper.AccountHelper;
+import helper.DBHelper;
 import helper.util.SubmitAction;
 import java.io.File;
 import javax.servlet.ServletContext;
@@ -34,7 +35,7 @@ public class AccountAction extends ActionSupport {
 		if (this.profileImage != null) {
 			try {
 				ServletContext servletContext = ServletActionContext.getServletContext();
-				String path = "profile_images/";
+				String path = DBHelper.getProfileImageRoot();
 				String filePath = servletContext.getRealPath(path);
 
 				File uploadDir = new File(filePath);
@@ -47,6 +48,7 @@ public class AccountAction extends ActionSupport {
 				return SUCCESS;
 			} catch (Exception e) {
 				// Catch exception
+				System.out.println();
 			}
 		}
 
@@ -61,7 +63,7 @@ public class AccountAction extends ActionSupport {
 					return SUCCESS;
 				case DELETE:
 					ServletContext servletContext = ServletActionContext.getServletContext();
-					String path = "profile_images/";
+					String path = DBHelper.getProfileImageRoot();
 					String filePath = servletContext.getRealPath(path);
 					(new File(filePath, this.user.getId() + ".tmp")).delete();
 					return SUCCESS;
@@ -72,6 +74,7 @@ public class AccountAction extends ActionSupport {
 		return INPUT;
 	}
 
+	// <editor-fold defaultstate="collapsed" desc="getters and setters">
 	public Person getUser() {
 		return this.user;
 	}
@@ -103,4 +106,5 @@ public class AccountAction extends ActionSupport {
 	public void setNew_password(String new_password) {
 		this.new_password = new_password;
 	}
+	// </editor-fold>
 }
