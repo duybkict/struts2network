@@ -27,11 +27,10 @@
     <body>
         <div class="container">
 
-			<form id="formSignUp" class="form-signin validate">
+			<form id="formSignUp" class="form-signin validate" action="register" method="post">
 				<h2 class="form-signin-heading">Sign Up</h2>
 
 				<div class="alert alert-error hide">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
 					<label><strong>Warning!</strong></label>
 					<div class="alert-messages">
 					</div>
@@ -182,11 +181,10 @@
 				errorPlacement: function(error, element) {
 					error.appendTo(element.parents('form').first().find('.alert-messages').first());
 				},
-				validClass: 'success',
-				onkeyup: false
+				validClass: 'success'
 			});
 
-			$('#formSignUp input').blur(function() {
+			$('#formSignUp input').keypress(function() {
 				if (validator.numberOfInvalids() <= 0) {
 					$('#formSignUp .alert').hide();
 				} else {

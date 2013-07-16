@@ -23,8 +23,9 @@
 			<result name="success">/index.jsp</result>
 		</action>
 
-		<action name="register">
-			<result>/register.jsp</result>
+		<action name="register" class="action.RegisterAction" method="execute">
+			<result name="input">/register.jsp</result>
+			<result name="success" type="redirectAction">home</result>
 		</action>
 
 		<action name="login" class="action.LoginAction" method="execute">

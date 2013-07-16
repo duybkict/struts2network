@@ -51,7 +51,6 @@ public class AccountHelper {
 		} catch (SQLException ex) {
 			// Catch exception
 		} catch (Exception ex) {
-
 		} finally {
 			try {
 				if (rs != null) {
@@ -71,6 +70,41 @@ public class AccountHelper {
 
 	public static void logout() {
 		loggedInUser = null;
+	}
+
+	public static void register(String email, String password, String name) {
+		Connection connection = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int newUserId = 0;
+
+		try {
+			connection = DBHelper.getConnection();
+			pst = connection.prepareStatement("INSERT INTO people(email, password, name) VALUES (?,?,?)");
+			pst.setString(1, email);
+			pst.setString(2, password);
+			pst.setString(3, name);
+			pst.executeUpdate();
+
+			AccountHelper.login(email, password);
+		} catch (ClassNotFoundException ex) {
+			// Catch exception
+		} catch (SQLException ex) {
+			// Catch exception
+		} catch (Exception ex) {
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pst != null) {
+					pst.close();
+				}
+
+			} catch (SQLException ex) {
+				// Catch exception
+			}
+		}
 	}
 
 	public static boolean isLoggedIn() {

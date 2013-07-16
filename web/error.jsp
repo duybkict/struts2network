@@ -41,6 +41,7 @@
 					<s:else>
 						<h1>An error has occured</h1>
 						<p class="lead"><s:property value="exception" /></p>
+						<p class="lead"><s:property value="exceptionStack" /></p>
 					</s:else>
 					<a href="<s:url action='register'/>" class="btn btn-large btn-primary">Sign Up Now</a>
 					<a href="index.jsp" class="btn btn-large">Return to the home page</a>

@@ -26,8 +26,15 @@
     </head>
     <body>
         <div class="container">
-			<form class="form-signin" action="login" method="post">
+			<form id="formSignIn" class="form-signin" action="login" method="post">
 				<h2 class="form-signin-heading">Sign In</h2>
+
+				<div class="alert alert-error hide">
+					<label><strong>Warning!</strong></label>
+					<div class="alert-messages">
+					</div>
+				</div>
+
 				<div class="controls">
 					<s:textfield name="email" placeholder="Email" cssClass="input-block-level" />
 				</div>
@@ -40,5 +47,43 @@
 			</form>
 
 		</div> <!-- /container -->
+
+		<script type="text/javascript">
+			var validator = $('#formSignIn').validate({
+				rules: {
+					email: {
+						required: true,
+						email: true
+					},
+					password: {
+						required: true
+					}
+				},
+				messages: {
+					email: {
+						required: 'Email must not be left blank.',
+						email: 'Invalid email format.'
+					},
+					password: {
+						required: 'Password must not be left blank.'
+					}
+				},
+				invalidHandler: function() {
+					$(this).find('.alert').first().show();
+				},
+				errorPlacement: function(error, element) {
+					error.appendTo(element.parents('form').first().find('.alert-messages').first());
+				},
+				validClass: 'success'
+			});
+
+			$('#formSignIn input').keypress(function() {
+				if (validator.numberOfInvalids() <= 0) {
+					$('#formSignIn .alert').hide();
+				} else {
+					$('#formSignIn .alert').show();
+				}
+			});
+		</script>
     </body>
 </html>

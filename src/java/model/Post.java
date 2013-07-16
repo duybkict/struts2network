@@ -28,6 +28,10 @@ public class Post {
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="constructors">
+	public Post() {
+	
+	}
+
 	public Post(int id, int personId, String content, Timestamp created) {
 		this.id = id;
 		this.personId = personId;
