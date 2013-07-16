@@ -7,6 +7,7 @@ package action;
 import com.opensymphony.xwork2.ActionSupport;
 import helper.AccountHelper;
 import helper.DBHelper;
+import helper.PostHelper;
 import helper.util.SubmitAction;
 import java.util.ArrayList;
 import model.Person;
@@ -36,13 +37,13 @@ public class HomeAction extends ActionSupport {
 		if (this.submitAction != SubmitAction.NONE) {
 			switch (this.submitAction) {
 				case INSERT:
-					Post.insertPost(this.post);
+					PostHelper.insertPost(this.post);
 					return SUCCESS;
 				case UPDATE:
-					Post.updatePost(this.post);
+					PostHelper.updatePost(this.post);
 					return SUCCESS;
 				case DELETE:
-					Post.deletePost(Math.abs(this.post.getId()));
+					PostHelper.deletePost(Math.abs(this.post.getId()));
 					return SUCCESS;
 				default: // Incorrect submit action
 					this.submitAction = SubmitAction.NONE;
@@ -50,7 +51,7 @@ public class HomeAction extends ActionSupport {
 		}
 
 		this.user = AccountHelper.getLoggedInUser();
-		this.posts = Post.getPosts(this.offset, this.limit);
+		this.posts = PostHelper.getPosts(this.offset, this.limit);
 
 		return INPUT;
 	}
@@ -88,7 +89,7 @@ public class HomeAction extends ActionSupport {
 	}
 
 	public int getCountPages() {
-		return (Post.getCountPosts() - 1) / limit;
+		return (PostHelper.getCountPosts() - 1) / limit;
 	}
 
 	public SubmitAction getSubmitAction() {

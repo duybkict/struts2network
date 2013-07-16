@@ -69,6 +69,14 @@ public class AccountHelper {
 		return false;
 	}
 
+	public static void logout() {
+		loggedInUser = null;
+	}
+
+	public static boolean isLoggedIn() {
+		return (loggedInUser != null);
+	}
+
 	public static void updateSettings() {
 		Connection connection = null;
 		PreparedStatement pst = null;

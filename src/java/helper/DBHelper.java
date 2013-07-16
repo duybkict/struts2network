@@ -8,14 +8,8 @@ import com.mysql.jdbc.Connection;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Properties;
-import model.Person;
-import model.Post;
 
 /**
  *

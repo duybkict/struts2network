@@ -4,14 +4,8 @@
  */
 package model;
 
-import com.mysql.jdbc.Connection;
-import helper.DBHelper;
 import java.io.File;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.servlet.ServletContext;
-import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
 /**
@@ -32,50 +26,16 @@ public class Person {
 		this.password = "";
 	}
 
-	public Person(int id) {
-		this.id = id;
-
-		Connection con = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-
-		try {
-			con = DBHelper.getConnection();
-			pst = con.prepareStatement("SELECT * FROM people WHERE id = ?");
-			pst.setInt(1, id);
-			rs = pst.executeQuery();
-
-			if (rs.next()) {
-				this.name = rs.getString("name");
-				this.email = rs.getString("email");
-				this.password = rs.getString("password");
-			}
-		} catch (ClassNotFoundException ex) {
-			// Catch exception
-		} catch (SQLException ex) {
-			// Catch exception
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pst != null) {
-					pst.close();
-				}
-
-			} catch (SQLException ex) {
-				// Catch exception
-			}
-		}
-	}
-
+	// <editor-fold defaultstate="collapsed" desc="constructors">
 	public Person(int id, String name, String email, String password) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 	}
+	// </editor-fold>
 
+	// <editor-fold defaultstate="collapsed" desc="getters and setters">
 	public int getId() {
 		return id;
 	}
@@ -120,4 +80,5 @@ public class Person {
 
 		return "profile_images/default.jpg";
 	}
+	// </editor-fold>
 }
