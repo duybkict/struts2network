@@ -5,7 +5,7 @@ USE Struts2Project;
 CREATE TABLE people (
 	id int PRIMARY KEY AUTO_INCREMENT,
 	name varchar(64) NOT NULL,
-	email varchar(255) NOT NULL UNIQUE,
+	email varchar(64) NOT NULL UNIQUE,
 	password varchar(64) NOT NULL
 );
 -- DROP TABLE posts
